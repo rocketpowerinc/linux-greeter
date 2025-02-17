@@ -33,13 +33,17 @@ INSTALLED_APPS+=$'\norg.deskflow.deskflow'
 # Read the list and format it for Zenity, marking installed apps as checked
 APP_LIST=""
 while IFS= read -r LINE || [[ -n "$LINE" ]]; do
+    # Skip comment lines and empty lines
+    if [[ "$LINE" =~ ^# ]] || [[ -z "$LINE" ]]; then
+        continue
+    fi
     CATEGORY=$(echo "$LINE" | cut -d'|' -f1)
     APP=$(echo "$LINE" | cut -d'|' -f2)
     echo "Processing $APP in category $CATEGORY"
     if echo "$INSTALLED_APPS" | grep -q "^$APP$"; then
-        APP_LIST+="TRUE $APP $CATEGORY "
+        APP_LIST+=" TRUE \"$APP\" \"$CATEGORY\""
     else
-        APP_LIST+="FALSE $APP $CATEGORY "
+        APP_LIST+=" FALSE \"$APP\" \"$CATEGORY\""
     fi
 done < "$MASTER_FILE"
 
