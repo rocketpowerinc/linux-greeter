@@ -7,6 +7,7 @@ MASTER_FILE="$DOWNLOAD_PATH/Flatpaks/Master.txt"
 
 # Function to display an error message and exit
 show_error() {
+    echo "$1" >&2
     zenity --error --text="$1" --width=500 --height=200
     exit 1
 }
@@ -42,14 +43,14 @@ INSTALLED_APPS=$(flatpak list --app --columns=application)
 # Process uninstallation of unchecked apps
 for APP in $INSTALLED_APPS; do
     if ! echo " $SELECTION " | grep -q " $APP "; then
-        flatpak uninstall -y "$APP" | zenity --progress --title="Uninstalling $APP" --text="Uninstalling..." --pulsate --auto-close --width=500 --height=200 || show_error "Error uninstalling $APP"
+        (flatpak uninstall -y "$APP" | tee >(zenity --progress --title="Uninstalling $APP" --text="Uninstalling..." --pulsate --auto-close --width=500 --height=200)) || show_error "Error uninstalling $APP"
     fi
 done
 
 # Process installation of selected apps
 for APP in $SELECTION; do
     if ! echo "$INSTALLED_APPS" | grep -q "^$APP$"; then
-        flatpak install -y "$APP" | zenity --progress --title="Installing $APP" --text="Installing..." --pulsate --auto-close --width=500 --height=200 || show_error "Error installing $APP"
+        (flatpak install -y "$APP" | tee >(zenity --progress --title="Installing $APP" --text="Installing..." --pulsate --auto-close --width=500 --height=200)) || show_error "Error installing $APP"
     fi
 done
 
