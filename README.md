@@ -1,1 +1,1 @@
-# pwr-greeter
+# linux-greeter
