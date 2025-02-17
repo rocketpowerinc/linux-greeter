@@ -1,30 +1,49 @@
 #!/usr/bin/env bash
 
-#todo if I uncoment this it looks worst on nixos (I think because dark mode is already on so no need for this)
+
+#todo if I uncomment this it looks worse on NixOS (I think because dark mode is already on, so no need for this)
 #export GTK_THEME=Adwaita:dark
 
 
-# Download the list of Flatpak applications
-curl -o master.txt https://raw.githubusercontent.com/rocketpowerinc/appbundles/main/Flatpaks/Master.txt
+# Clone repo
+git clone https://github.com/rocketpowerinc/appbundles.git $HOME/Downloads/appbundles
 
-# Check if the file was downloaded successfully
-if [[ ! -s master.txt ]]; then
-    zenity --error --text="Failed to download application list."
+# Define the path to the master file
+MASTER_FILE="/home/rocket/Downloads/appbundles/Flatpaks/Master.txt"
+
+# Echo the master file path for verification
+echo "Master file path: $MASTER_FILE"
+
+# Check if the file exists
+if [[ ! -f $MASTER_FILE ]]; then
+    zenity --error --text="Master file not found at $MASTER_FILE"
     exit 1
 fi
 
+# Print the contents of the master file for debugging
+echo "Contents of master file:"
+cat "$MASTER_FILE"
+
 # Get installed Flatpak applications
 INSTALLED_APPS=$(flatpak list --app --columns=application)
+echo "Installed applications:"
+echo "$INSTALLED_APPS"
+
+# Manually add 'org.deskflow.deskflow' to installed applications for testing
+INSTALLED_APPS+=$'\norg.deskflow.deskflow'
 
 # Read the list and format it for Zenity, marking installed apps as checked
 APP_LIST=""
-while read -r APP; do
+while IFS= read -r APP || [[ -n "$APP" ]]; do
+    echo "Processing $APP"
     if echo "$INSTALLED_APPS" | grep -q "^$APP$"; then
         APP_LIST+="TRUE $APP "
     else
         APP_LIST+="FALSE $APP "
     fi
-done < master.txt
+done < "$MASTER_FILE"
+
+echo "Application list for Zenity: $APP_LIST"
 
 # Ask the user to select applications
 SELECTION=$(zenity --list --checklist --title="Flatpak Manager" --text="Select applications to install/uninstall:" \
@@ -50,3 +69,6 @@ if [[ -n "$SELECTION" ]]; then
 fi
 
 zenity --info --text="Operation completed."
+
+#Clean Up
+rm -rf $HOME/Downloads/appbundles
