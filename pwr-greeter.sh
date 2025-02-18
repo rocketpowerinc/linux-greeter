@@ -21,16 +21,16 @@ fi
 
 # Present a list of options to the user
 CHOICE=$(zenity --list --title="Choose a script to run" --column="Scripts" \
-    "APT Manager" \
-    "Flatpak Manager" \
+    "Package Manager - APT" \
+    "Package Manager - Flatpak" \
     --width=500 --height=500)
 
 # Check the user's choice
 case "$CHOICE" in
-    "APT Manager")
+    "Package Manager - APT")
         bash "$DOWNLOAD_PATH/button_packages_apt.sh"
         ;;
-    "Flatpak Manager")
+    "Package Manager - Flatpak")
         bash "$DOWNLOAD_PATH/button_packages_flatpak.sh"
         ;;
     *)
