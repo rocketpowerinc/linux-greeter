@@ -40,12 +40,13 @@ SELECTION=$(zenity --list --checklist --title="Flatpak Manager" --text="Select a
 # Refresh installed apps list after selection
 INSTALLED_APPS=$(flatpak list --app --columns=application)
 
-# Process uninstallation of unchecked apps
-for APP in $INSTALLED_APPS; do
-    if ! echo " $SELECTION " | grep -q " $APP "; then
+# Process uninstallation of unchecked apps only if they are in Master.txt
+while IFS='|' read -r CATEGORY APP; do
+    [[ -z "$APP" || "$APP" =~ ^# ]] && continue
+    if [[ "$INSTALLED_APPS" =~ "$APP" ]] && ! echo "$SELECTION" | grep -q "$APP"; then
         (flatpak uninstall -y "$APP" | tee >(zenity --progress --title="Uninstalling $APP" --text="Uninstalling..." --pulsate --auto-close --width=500 --height=200)) || show_error "Error uninstalling $APP"
     fi
-done
+done < "$MASTER_FILE"
 
 # Process installation of selected apps
 for APP in $SELECTION; do
