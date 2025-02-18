@@ -79,7 +79,7 @@ INSTALLED_APPS=$(nix profile list | awk '{print $3}' | sed -e 's/^legacyPackages
 # Process uninstallation of unchecked apps only if they are in Master.txt
 for APP in "${MASTER_APPS[@]}"; do
   if echo "$INSTALLED_APPS" | grep -q "^$APP$" && ! echo "$SELECTION" | grep -q "$APP"; then
-    (nix profile remove "nixpkgs#$APP" | tee >(zenity --progress --title="Uninstalling $APP" --text="Uninstalling..." --pulsate --auto-close --width=500 --height=200)) || show_error "Error uninstalling $APP"
+    (nix profile remove $APP | tee >(zenity --progress --title="Uninstalling $APP" --text="Uninstalling..." --pulsate --auto-close --width=500 --height=200)) || show_error "Error uninstalling $APP"
   fi
 done
 
