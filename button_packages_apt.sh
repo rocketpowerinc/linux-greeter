@@ -37,9 +37,35 @@ while IFS='|' read -r CATEGORY APP; do
   MASTER_APPS+=("$APP")
 done <"$MASTER_FILE"
 
-# Ask the user to select applications
-SELECTION=$(zenity --list --checklist --title="APT Manager" --text="Select applications to install/uninstall:" \
-  --column="Select" --column="Application" --column="Category" "${APP_LIST[@]}" --separator=" " --width=800 --height=600)
+# Function to update the checklist
+update_checklist() {
+  local selected_all=$1
+  APP_LIST=()
+  while IFS='|' read -r CATEGORY APP; do
+    # Skip comment lines and empty lines
+    if [[ "$CATEGORY" =~ ^# ]] || [[ -z "$CATEGORY" ]]; then
+      continue
+    fi
+    SELECTED=$selected_all
+    APP_LIST+=("$SELECTED" "$APP" "$CATEGORY")
+  done <"$MASTER_FILE"
+}
+
+# Initial display of selection dialog
+while true; do
+  SELECTION=$(zenity --list --checklist --title="APT Manager" --text="Select applications to install/uninstall:" \
+    --column="Select" --column="Application" --column="Category" "${APP_LIST[@]}" \
+    --extra-button="Select All" --extra-button="Unselect All" --separator=" " --width=800 --height=600)
+
+  # Handle Select All and Unselect All buttons
+  if [[ "$SELECTION" == "Select All" ]]; then
+    update_checklist TRUE
+  elif [[ "$SELECTION" == "Unselect All" ]]; then
+    update_checklist FALSE
+  else
+    break
+  fi
+done
 
 # Ensure SELECTION is not empty
 if [[ -z "$SELECTION" ]]; then

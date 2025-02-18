@@ -8,7 +8,7 @@ MASTER_FILE="$DOWNLOAD_PATH/Flatpaks/Master.txt"
 # Clean up
 rm -rf "$DOWNLOAD_PATH"
 
-# Remove any existing Flatpak remotes exept Flathub
+# Remove any existing Flatpak remotes except Flathub
 for remote in $(flatpak remotes --columns=name | tail -n +2); do
     if [[ "$remote" != "flathub" ]]; then
         flatpak remote-delete "$remote"
@@ -33,6 +33,7 @@ INSTALLED_APPS=$(flatpak list --app --columns=application)
 
 # Generate the application list for Zenity
 APP_LIST=()
+MASTER_APPS=()
 while IFS='|' read -r CATEGORY APP; do
     # Skip comment lines and empty lines
     if [[ "$CATEGORY" =~ ^# ]] || [[ -z "$CATEGORY" ]]; then
@@ -40,11 +41,44 @@ while IFS='|' read -r CATEGORY APP; do
     fi
     SELECTED=$(echo "$INSTALLED_APPS" | grep -q "^$APP$" && echo TRUE || echo FALSE)
     APP_LIST+=("$SELECTED" "$APP" "$CATEGORY")
+    MASTER_APPS+=("$APP")
 done < "$MASTER_FILE"
 
-# Ask the user to select applications
-SELECTION=$(zenity --list --checklist --title="Flatpak Manager" --text="Select applications to install/uninstall:" \
-    --column="Select" --column="Application" --column="Category" "${APP_LIST[@]}" --separator=" " --width=800 --height=600)
+# Function to update the checklist
+update_checklist() {
+    local selected_all=$1
+    APP_LIST=()
+    while IFS='|' read -r CATEGORY APP; do
+        # Skip comment lines and empty lines
+        if [[ "$CATEGORY" =~ ^# ]] || [[ -z "$CATEGORY" ]]; then
+            continue
+        fi
+        SELECTED=$selected_all
+        APP_LIST+=("$SELECTED" "$APP" "$CATEGORY")
+    done < "$MASTER_FILE"
+}
+
+# Initial display of selection dialog
+while true; do
+    SELECTION=$(zenity --list --checklist --title="Flatpak Manager" --text="Select applications to install/uninstall:" \
+        --column="Select" --column="Application" --column="Category" "${APP_LIST[@]}" \
+        --extra-button="Select All" --extra-button="Unselect All" --separator=" " --width=800 --height=600)
+
+    # Handle Select All and Unselect All buttons
+    if [[ "$SELECTION" == "Select All" ]]; then
+        update_checklist TRUE
+    elif [[ "$SELECTION" == "Unselect All" ]]; then
+        update_checklist FALSE
+    else
+        break
+    fi
+done
+
+# Ensure SELECTION is not empty
+if [[ -z "$SELECTION" ]]; then
+    zenity --info --text="No applications selected." --width=500 --height=200
+    exit 0
+fi
 
 # Refresh installed apps list after selection
 INSTALLED_APPS=$(flatpak list --app --columns=application)
