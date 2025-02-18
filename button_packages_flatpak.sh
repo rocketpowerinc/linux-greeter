@@ -15,6 +15,9 @@ for remote in $(flatpak remotes --columns=name | tail -n +2); do
     fi
 done
 
+# Add Flathub remote if it doesn't exist
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
 # Function to display an error message and exit
 show_error() {
     echo "$1" >&2
