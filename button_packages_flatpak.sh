@@ -8,6 +8,13 @@ MASTER_FILE="$DOWNLOAD_PATH/Flatpaks/Master.txt"
 # Clean up
 rm -rf "$DOWNLOAD_PATH"
 
+# Remove any existing Flatpak remotes exept Flathub
+for remote in $(flatpak remotes --columns=name | tail -n +2); do
+    if [[ "$remote" != "flathub" ]]; then
+        flatpak remote-delete "$remote"
+    fi
+done
+
 # Function to display an error message and exit
 show_error() {
     echo "$1" >&2
