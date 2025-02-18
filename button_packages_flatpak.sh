@@ -5,6 +5,9 @@ REPO_URL="https://github.com/rocketpowerinc/appbundles.git"
 DOWNLOAD_PATH="$HOME/Downloads/appbundles"
 MASTER_FILE="$DOWNLOAD_PATH/Flatpaks/Master.txt"
 
+# Clean up
+rm -rf "$DOWNLOAD_PATH"
+
 # Function to display an error message and exit
 show_error() {
     echo "$1" >&2
