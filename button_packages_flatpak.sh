@@ -23,7 +23,6 @@ git clone "$REPO_URL" "$DOWNLOAD_PATH" || show_error "Failed to clone the reposi
 
 # Get installed Flatpak applications
 INSTALLED_APPS=$(flatpak list --app --columns=application)
-INSTALLED_APPS+=$'\norg.deskflow.deskflow' # Manually added for testing
 
 # Generate the application list for Zenity
 APP_LIST=()
