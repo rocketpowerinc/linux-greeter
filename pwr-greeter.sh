@@ -24,7 +24,7 @@ CHOICE=$(zenity --list --title="Choose a script to run" --column="Scripts" \
     "📦 Package Manager - APT" \
     "📦 Package Manager - Flatpak" \
     "📦 Package Manager - Nix" \
-    "⌨️ Script Bin" \
+    "🗑️ Script Bin" \
     --width=500 --height=500)
 
 # Check the user's choice
@@ -38,7 +38,7 @@ case "$CHOICE" in
     "📦 Package Manager - Nix")
         bash "$DOWNLOAD_PATH/button_packages_nix.sh"
         ;;
-    "⌨️ Script Bin")
+    "🗑️ Script Bin")
         bash "$DOWNLOAD_PATH/button_open_scriptbin.sh"
         ;;
     *)
