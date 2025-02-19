@@ -39,7 +39,7 @@ case "$CHOICE" in
         bash "$DOWNLOAD_PATH/button_packages_nix.sh"
         ;;
     "⌨️ Script Bin")
-        bash "$DOWNLOAD_PATH/button_install_lazyvim.sh"
+        bash "$DOWNLOAD_PATH/button_open_scriptbin.sh"
         ;;
     *)
         # If the user closes the dialog or cancels, show a Cancel dialog
