@@ -34,7 +34,7 @@ install_dependencies() {
     sudo zypper refresh
     sudo zypper install -y neovim git lazygit fzf ripgrep fd
   else
-    echo "Unsupported Linux distribution."
+    echo -e "\e[31mUnsupported Linux distribution.\e[0m"
     exit 1
   fi
 }
