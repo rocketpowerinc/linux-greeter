@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+#todo - Make sure the following packages are installed (not here beacause sudo will ask for passsword)
+#sudo apt install zenity -y
+#sudo apt install git -y
+#sudo apt install flatpak -y
+#sudo apt install fonts-noto-color-emoji -y
+
 # Clone the repository into $HOME/Downloads
 REPO_URL="https://github.com/rocketpowerinc/linux-greeter.git"
 DOWNLOAD_PATH="$HOME/Downloads/linux-greeter"
