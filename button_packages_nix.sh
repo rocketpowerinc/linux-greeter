@@ -33,7 +33,7 @@ while IFS='|' read -r CATEGORY APP; do
     continue
   fi
   if echo "$INSTALLED_APPS" | grep -q "^$APP$"; then
-    INSTALLED_LIST+=("TRUE" "$APP" "$CATEGORY")
+    INSTALLED_LIST+=("FALSE" "$APP" "$CATEGORY")
   else
     AVAILABLE_LIST+=("FALSE" "$APP" "$CATEGORY")
   fi
@@ -48,22 +48,18 @@ INSTALL_SELECTION=$(zenity --list --checklist --title="Nix Manager - Install" --
   --column="Select" --column="Application" --column="Category" "${AVAILABLE_LIST[@]}" --separator="|" --width=800 --height=600)
 
 # Convert SELECTION into arrays
-IFS='|' read -r -a UNSELECTED_APPS <<< "$UNINSTALL_SELECTION"
-IFS='|' read -r -a SELECTED_APPS <<< "$INSTALL_SELECTION"
-
-# Debugging: Print selected and unselected apps
-echo "Selected apps: ${SELECTED_APPS[@]}"
-echo "Unselected apps: ${UNSELECTED_APPS[@]}"
+IFS='|' read -r -a UNINSTALLING <<< "$UNINSTALL_SELECTION"
+IFS='|' read -r -a INSTALLING <<< "$INSTALL_SELECTION"
 
 # Process uninstallation of unchecked apps
-for APP in "${UNSELECTED_APPS[@]}"; do
+for APP in "${UNINSTALLING[@]}"; do
   echo "Uninstalling $APP"
   zenity --info --text="Uninstalling $APP" --width=500 --height=200
   (nix profile remove $APP | tee >(zenity --progress --title="Uninstalling $APP" --text="Uninstalling..." --pulsate --auto-close --width=500 --height=200)) || show_error "Error uninstalling $APP"
 done
 
 # Process installation of selected apps
-for APP in "${SELECTED_APPS[@]}"; do
+for APP in "${INSTALLING[@]}"; do
   echo "Installing $APP"
   zenity --info --text="Installing $APP" --width=500 --height=200
   (nix profile install "nixpkgs#$APP" | tee >(zenity --progress --title="Installing $APP" --text="Installing..." --pulsate --auto-close --width=500 --height=200)) || show_error "Error installing $APP"
