@@ -23,6 +23,7 @@ fi
 CHOICE=$(zenity --list --title="Choose a script to run" --column="Scripts" \
     "Package Manager - APT" \
     "Package Manager - Flatpak" \
+    "Package Manager - Nix" \
     --width=500 --height=500)
 
 # Check the user's choice
@@ -32,6 +33,9 @@ case "$CHOICE" in
         ;;
     "Package Manager - Flatpak")
         bash "$DOWNLOAD_PATH/button_packages_flatpak.sh"
+        ;;
+    "Package Manager - Nix")
+        bash "$DOWNLOAD_PATH/button_packages_nix.sh"
         ;;
     *)
         # If the user closes the dialog or cancels, show a Cancel dialog
