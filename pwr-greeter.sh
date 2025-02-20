@@ -49,7 +49,7 @@ case "$CHOICE" in
         ;;
     *)
         # If the user closes the dialog or cancels, show a Cancel dialog
-        #zenity --info --text="Canceled by user."
+        #zenity --info --text="Canceled by user." #*this was annoying
         exit 0
         ;;
 esac
