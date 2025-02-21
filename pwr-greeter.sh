@@ -33,16 +33,17 @@ find "$DOWNLOAD_PATH" -type f -name "*.sh" -exec chmod +x {} \;
 # Get the current date
 current_date=$(date +"%A, %B %d, %Y, %I:%M %p")
 
-# Display the main menu with buttons in the center of the frame
+# Display the main menu with buttons in the center of the fram
 yad --title="" \
     --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
     --text-align=center --text="<span size='x-large' foreground='gold'></span>\n \n" \
-    --field="📦 Package Manager - APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
-    --field="📦 Package Manager - Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
-    --field="📦 Package Manager - Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
-    --field="🪢 Titus - LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
-    --field="🗑️ Script Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
+    --field="📦 APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
+    --field="📦 Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
+    --field="📦 Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
+    --field="🪢 LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
+    --field="🗑️ Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
+
 
 choice=$?
 
