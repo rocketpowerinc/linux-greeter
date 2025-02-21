@@ -34,7 +34,7 @@ find "$DOWNLOAD_PATH" -type f -name "*.sh" -exec chmod +x {} \;
 current_date=$(date +"%A, %B %d, %Y, %I:%M %p")
 
 # Display the main menu with buttons in the center of the frame
-yad --title="Rocket Power Included" \
+yad --title="" \
     --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
     --field="📦 Package Manager - APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
