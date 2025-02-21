@@ -37,6 +37,7 @@ current_date=$(date +"%A, %B %d, %Y, %I:%M %p")
 yad --title="" \
     --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
+    --text-align=center --text="<span size='x-large' foreground='gold'></span>\n \n" \
     --field="📦 Package Manager - APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
     --field="📦 Package Manager - Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
     --field="📦 Package Manager - Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
