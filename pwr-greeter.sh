@@ -41,7 +41,7 @@ yad --title="" \
     --field="📦 APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
     --field="📦 Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
     --field="📦 Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
-    --field="🪢 LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
+    --field="🐧 LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
     --field="🗑️ Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
 
 
