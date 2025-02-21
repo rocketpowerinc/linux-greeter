@@ -30,7 +30,7 @@ dotfiles=(
 )
 
 # Create a menu using Zenity
-selection=$(zenity --list --title="Edit Dot Files" --column="Dot Files" "${dotfiles[@]}" --width=400 --height=300 --window-icon="gedit" --text="Select a dot file to edit:" --ok-label="Open" --cancel-label="Cancel")
+selection=$(zenity --list --title="Edit Dot Files" --column="Dot Files" "${dotfiles[@]}" --width=600 --height=500 --window-icon="gedit" --text="Select a dot file to edit:" --ok-label="Open" --cancel-label="Cancel")
 
 # Check if the user selected a file
 if [ $? -eq 0 ]; then
