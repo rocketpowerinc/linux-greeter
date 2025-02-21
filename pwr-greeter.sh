@@ -37,21 +37,27 @@ current_date=$(date +"%A, %B %d, %Y, %I:%M %p")
 yad --title="Rocket Power Included" \
     --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
-    --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n
-            <span size='medium' foreground='white'>$current_date</span>\n\n\n" \
     --field="📦 Package Manager - APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
     --field="📦 Package Manager - Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
     --field="📦 Package Manager - Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
+    --field="🪢 Titus - LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
     --field="🗑️ Script Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
 
 choice=$?
+
+#todo cut and paste this into yad menu above to add a welcome message
+#    --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n
+#            <span size='medium' foreground='white'>$current_date</span>\n\n\n" \
+
+
 
 # Trigger the corresponding action based on the button pressed
 case $choice in
     1) bash "$DOWNLOAD_PATH/button_packages_apt.sh" ;;
     2) bash "$DOWNLOAD_PATH/button_packages_flatpak.sh" ;;
     3) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
-    4) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
+    4) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
+    5) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
 esac
 
 # Clean up by removing the downloaded repository
