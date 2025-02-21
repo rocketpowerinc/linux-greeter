@@ -42,6 +42,7 @@ yad --title="" \
     --field="📦 Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
     --field="📦 Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
     --field="🐧 LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
+    --field="✏️ Edit Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
     --field="🗑️ Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
 
 
@@ -59,7 +60,8 @@ case $choice in
     2) bash "$DOWNLOAD_PATH/button_packages_flatpak.sh" ;;
     3) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
     4) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
-    5) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
+    5) bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
+    6) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
 esac
 
 # Clean up by removing the downloaded repository
