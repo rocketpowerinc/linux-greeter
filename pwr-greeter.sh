@@ -38,13 +38,13 @@ yad --title="" \
     --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
     --text-align=center --text="<span size='x-large' foreground='gold'></span>\n \n" \
-    --field="📦 APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
-    --field="📦 Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
-    --field="📦 Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
-    --field="🐧 LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
-    --field="✏️ Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
-    --field="🌐 ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
-    --field="🗑️ Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
+    --field="🌐  ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
+    --field="📦  APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
+    --field="📦  Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
+    --field="📦  Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
+    --field="🐧  LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
+    --field="✏️  Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
+    --field="🗑️  Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
 
 
 choice=$?
@@ -57,12 +57,12 @@ choice=$?
 
 # Trigger the corresponding action based on the button pressed
 case $choice in
-    1) bash "$DOWNLOAD_PATH/button_packages_apt.sh" ;;
-    2) bash "$DOWNLOAD_PATH/button_packages_flatpak.sh" ;;
-    3) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
-    4) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
-    5) bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
-    6) bash "$DOWNLOAD_PATH/button_open_website.sh" ;;
+    1) bash "$DOWNLOAD_PATH/button_open_website.sh" ;;
+    2) bash "$DOWNLOAD_PATH/button_packages_apt.sh" ;;
+    3) bash "$DOWNLOAD_PATH/button_packages_flatpak.sh" ;;
+    4) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
+    5) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
+    6) bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
     7) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
 esac
 
