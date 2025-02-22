@@ -63,7 +63,7 @@ case $choice in
     3) bash "$DOWNLOAD_PATH/button_packages_flatpak.sh" ;;
     4) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
     5) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
-    6) bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
+    6) run_with_sudo bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
     7) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
 esac
 
