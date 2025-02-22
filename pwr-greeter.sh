@@ -44,7 +44,7 @@ yad --title="" \
     --field="📦  Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
     --field="🐧  LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
     --field="✏️  Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
-    --field="♻️  Update":FBTN "run_with_sudo bash -c '$DOWNLOAD_PATH/button_distro_updater.sh'" \
+    --field="♻️  Update":FBTN "sudo bash -c '$DOWNLOAD_PATH/button_distro_updater.sh'" \
     --field="🗑️  Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
 
 
@@ -64,7 +64,7 @@ case $choice in
     4) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
     5) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
     6) bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
-    7) run_with_sudo bash "$DOWNLOAD_PATH/button_open_updater.sh" ;;
+    7) sudo bash "$DOWNLOAD_PATH/button_open_updater.sh" ;;
     8) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
 esac
 
