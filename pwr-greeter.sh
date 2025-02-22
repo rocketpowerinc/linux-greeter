@@ -43,6 +43,7 @@ yad --title="" \
     --field="📦 Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
     --field="🐧 LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
     --field="✏️ Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
+    --field="🌐 ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
     --field="🗑️ Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
 
 
@@ -61,7 +62,8 @@ case $choice in
     3) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
     4) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
     5) bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
-    6) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
+    6) bash "$DOWNLOAD_PATH/button_open_website.sh" ;;
+    7) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
 esac
 
 # Clean up by removing the downloaded repository
