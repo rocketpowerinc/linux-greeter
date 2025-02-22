@@ -19,28 +19,33 @@ update_and_cleanup() {
       sudo apt clean
       flatpak update --noninteractive
       flatpak uninstall --unused --noninteractive
+      exit
       ;;
     debian)
       sudo aptitude update && sudo aptitude safe-upgrade -y && sudo aptitude full-upgrade -y && sudo aptitude clean
       flatpak update --noninteractive
       flatpak uninstall --unused --noninteractive
+      exit
       ;;
     arch)
       sudo pacman -Syu && sudo paccache -r && sudo pacman -Rns $(pacman -Qtdq)
       flatpak update --noninteractive
       flatpak uninstall --unused --noninteractive
+      exit
       ;;
     fedora)
       sudo dnf check-update && sudo dnf upgrade -y
       sudo dnf autoremove -y && sudo dnf clean all
       flatpak update --noninteractive
       flatpak uninstall --unused --noninteractive
+      exit
       ;;
     opensuse)
       sudo zypper dup --allow-vendor-change && sudo zypper refresh && sudo zypper update && sudo zypper patch && sudo zypper install-new-recommends
       sudo zypper clean
       flatpak update --noninteractive
       flatpak uninstall --unused --noninteractive
+      exit
       ;;
     nixos)
       sudo nix-channel --update
@@ -48,6 +53,7 @@ update_and_cleanup() {
       nix-collect-garbage -d
       flatpak update --noninteractive
       flatpak uninstall --unused --noninteractive
+      exit
       ;;
     *)
       echo "Unsupported Linux distribution: $distro"
