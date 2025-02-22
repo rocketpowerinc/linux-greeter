@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
+
+# Prompt for sudo password using zenity
+sudo_password=$(zenity --password --title="Authentication Required")
+
+# Check if password is empty
+if [[ -z "$sudo_password" ]]; then
+  zenity --error --text="Password is required."
+  exit 1
+fi
+
 # Detecting the Linux distribution
 detect_distro() {
   if [ -f /etc/os-release ]; then
