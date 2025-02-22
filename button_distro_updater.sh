@@ -8,19 +8,25 @@ if [ $? -eq 0 ]; then
   # Create a named pipe for progress output
   PIPE=$(mktemp -u)
   mkfifo "$PIPE"
+
+  # Function to update progress
+  update_progress() {
+    echo "$1"
+    echo "# $2"
+  }
+
   # Run the upgrade commands with the password
   (
-    echo "10"
-    echo "# Updating package lists..."
+    update_progress 10 "Updating package lists..."
     echo "$PASSWORD" | sudo -S apt-get update >"$PIPE" 2>&1
-    echo "50"
-    echo "# Upgrading packages..."
+    update_progress 50 "Upgrading packages..."
     echo "$PASSWORD" | sudo -S apt-get upgrade -y >>"$PIPE" 2>&1
-    echo "100"
-    echo "# Upgrade complete."
+    update_progress 100 "Upgrade complete."
   ) | yad --progress --title="System Update" --text="Starting..." --percentage=0 --auto-close --width=300 --pulsate &
+
   # Display command output in a larger text-info dialog
   tail -f "$PIPE" | yad --text-info --title="Update Output" --width=700 --height=500
+
   # Clean up
   rm "$PIPE"
 else
