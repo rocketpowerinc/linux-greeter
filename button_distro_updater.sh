@@ -35,23 +35,40 @@ update_and_cleanup() {
 
   case $distro in
   ubuntu | debian)
-    run_with_sudo 'apt update'
-    run_with_sudo 'apt upgrade -y'
-    run_with_sudo 'apt autoremove -y'
-    run_with_sudo 'apt clean'
-    flatpak update --noninteractive && flatpak uninstall --unused --noninteractive || {
-      zenity --error --text="Flatpak operations failed."
-      exit 1
-    }
+    (
+      echo 10
+      run_with_sudo 'apt update' &&
+        echo 30
+      run_with_sudo 'apt upgrade -y' &&
+        echo 50
+      run_with_sudo 'apt autoremove -y' &&
+        echo 70
+      run_with_sudo 'apt clean' &&
+        echo 90
+      flatpak update --noninteractive &&
+        flatpak uninstall --unused --noninteractive || {
+        zenity --error --text="Flatpak operations failed."
+        exit 1
+      }
+      echo 100
+    ) | yad --progress --title="Updating System" --percentage=0 --auto-close --auto-kill
     ;;
   arch)
-    run_with_sudo 'pacman -Syu --noconfirm'
-    run_with_sudo 'paccache -r'
-    run_with_sudo 'pacman -Rns $(pacman -Qtdq) --noconfirm'
-    flatpak update --noninteractive && flatpak uninstall --unused --noninteractive || {
-      zenity --error --text="Flatpak operations failed."
-      exit 1
-    }
+    (
+      echo 10
+      run_with_sudo 'pacman -Syu --noconfirm' &&
+        echo 30
+      run_with_sudo 'paccache -r' &&
+        echo 50
+      run_with_sudo 'pacman -Rns $(pacman -Qtdq) --noconfirm' &&
+        echo 90
+      flatpak update --noninteractive &&
+        flatpak uninstall --unused --noninteractive || {
+        zenity --error --text="Flatpak operations failed."
+        exit 1
+      }
+      echo 100
+    ) | yad --progress --title="Updating System" --percentage=0 --auto-close --auto-kill
     ;;
   fedora)
     echo "Fedora unsupported currently due to dnf limitations requiring interactive input or additional configuration beyond simple piping of passwords. Adjust manually if needed."
