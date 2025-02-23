@@ -6,7 +6,7 @@ show_menu() {
   export -f update_system
 
   yad --title="Manage $distro" \
-    --width=600 --height=400 \
+    --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
     --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Manage $distro ⚡🚀</span>\n\n" \
     --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
