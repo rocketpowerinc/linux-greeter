@@ -52,11 +52,6 @@ yad --title="" \
 
 choice=$?
 
-#todo cut and paste this into yad menu above to add a welcome message
-#    --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n
-#            <span size='medium' foreground='white'>$current_date</span>\n\n\n" \
-
-
 
 # Clean up by removing the downloaded repository
 rm -rf "$DOWNLOAD_PATH"
