@@ -44,10 +44,10 @@ yad --title="" \
   --field="<span foreground='#FF69B4'>$(printf '\uF0C7')</span>     Manage Flatpaks":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
   --field="<span foreground='#FF69B4'>$(printf '\uF0C7')</span>     Manage Nix pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
   --field="<span foreground='#FFFF00'>$(printf '\uF1D3')</span>     Titus LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
-  --field="<span foreground='#808080'>$(printf '\uF573')</span>     View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
+  --field="<span foreground='#800080'>$(printf '\uF573')</span>     View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="<span foreground='#00FF00'>$(printf '\uF17C')</span>     Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
   --field="<span foreground='#00FFFF'>$(printf '\uE70C')</span>     ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
-  --field="$(printf '\uF023') Members Only":FBTN "bash -c 'echo PlaceHolder'" \
+  --field="$(printf '\uF023')    Members Only":FBTN "bash -c 'echo PlaceHolder'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
