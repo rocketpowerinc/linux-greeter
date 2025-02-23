@@ -7,8 +7,8 @@ show_menu() {
 
   yad --form --center --title "Manage $distro" --width=600 --height=400 \
     --button=Back:1 --button=OK:0 --button=Cancel:252 \
-    --field="Cheatsheet":BTN "bash -c 'cheatsheet "$distro"'" \
-    --field="Update":BTN "bash -c 'update_system "$distro"'"
+    --field="📖 Cheatsheet":BTN "bash -c 'cheatsheet "$distro"'" \
+    --field="♻️ Update":BTN "bash -c 'update_system "$distro"'"
 
   case $? in
   1)
