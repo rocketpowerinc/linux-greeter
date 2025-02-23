@@ -47,7 +47,7 @@ yad --title="" \
   --field="✏️  Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="🖥️  Distro":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
   --field="🗑️  Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
-  --button="❌ Exit":1
+  --field="❌ Exit":FBTN "bash -c 'exit'"
 
 choice=$?
 
