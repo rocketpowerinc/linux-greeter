@@ -9,13 +9,9 @@ NC='\033[0m' # No Color
 if command -v nix >/dev/null 2>&1; then
   echo -e "${GREEN}Nix Package Manager is already installed${NC}"
 else
-  # Ask the user if they want to install Nix (in yellow)
-  echo -e "${YELLOW}Nix Package Manager is not installed. Do you want to install it? (yes/no): ${NC}\c"
-  read choice
-  case "$choice" in
-  [Yy]*)
+  # Ask the user if they want to install Nix via Zenity
+  if zenity --question --title="Nix Installation" --text="Nix Package Manager is not installed. Do you want to install it?" --width=500 --height=200; then
     echo "Installing Nix Package Manager..."
-
     # Install Nix
     curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
 
@@ -23,18 +19,12 @@ else
     if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
       . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     else
-      echo "Warning: nix-daemon.sh not found. You may need to restart your shell."
+      zenity --warning --text="Warning: nix-daemon.sh not found. You may need to restart your shell." --width=500 --height=200
     fi
-
-    echo -e "${GREEN}Nix Package Manager has been successfully installed${NC}"
-    ;;
-  [Nn]*)
-    echo "Skipping Nix installation."
-    ;;
-  *)
-    echo "Invalid input. Skipping installation."
-    ;;
-  esac
+    zenity --info --text="Nix Package Manager has been successfully installed." --width=500 --height=200
+  else
+    zenity --info --text="Skipping Nix installation." --width=500 --height=200
+  fi
 fi
 
 #*#################################################################
