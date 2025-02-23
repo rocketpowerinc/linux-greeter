@@ -71,5 +71,8 @@ while true; do
     --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
     --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
-
+  # If the user pressed "Exit" or closed the window, break the loop
+  if [[ $? -ne 0 ]]; then
+    break
+  fi
 done
