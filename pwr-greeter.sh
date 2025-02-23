@@ -45,6 +45,7 @@ yad --title="" \
     --field="🐧  LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
     --field="✏️  Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
     --field="♻️  Update":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_updater.sh'" \
+    --field="♻️  Update":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
     --field="🗑️  Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'"
 
 
@@ -57,16 +58,17 @@ choice=$?
 
 
 # Trigger the corresponding action based on the button pressed
-case $choice in
-    1) bash "$DOWNLOAD_PATH/button_open_website.sh" ;;
-    2) bash "$DOWNLOAD_PATH/button_packages_apt.sh" ;;
-    3) bash "$DOWNLOAD_PATH/button_packages_flatpak.sh" ;;
-    4) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
-    5) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
-    6) bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
-    7) bash "$DOWNLOAD_PATH/button_open_updater.sh" ;;
-    8) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
-esac
+#case $choice in
+#    1) bash "$DOWNLOAD_PATH/button_open_website.sh" ;;
+#    2) bash "$DOWNLOAD_PATH/button_packages_apt.sh" ;;
+#    3) bash "$DOWNLOAD_PATH/button_packages_flatpak.sh" ;;
+#    4) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
+#    5) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
+#    6) bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
+#    7) bash "$DOWNLOAD_PATH/button_distro_updater.sh" ;;
+#    8) bash "$DOWNLOAD_PATH/button_distro_specific.sh" ;;
+#    9) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
+#esac
 
 # Clean up by removing the downloaded repository
 rm -rf "$DOWNLOAD_PATH"
