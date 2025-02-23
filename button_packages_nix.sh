@@ -14,15 +14,8 @@ else
     echo "Installing Nix Package Manager..."
     # Install Nix
     curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
-
-    # Ensure environment is updated
-    if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
-      command source ~/.bashrc
-      . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    else
-      command source ~/.bashrc
-      . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    fi
+    command source ~/.bashrc
+    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     zenity --info --text="Nix Package Manager has been successfully installed." --width=500 --height=200
   else
     zenity --info --text="Skipping Nix installation." --width=500 --height=200
