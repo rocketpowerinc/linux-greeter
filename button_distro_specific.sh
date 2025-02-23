@@ -69,9 +69,9 @@ while true; do
     --field="🐧 Nix":FBTN "bash -c 'show_menu Nix'" \
     --field="🐧 Debian":FBTN "bash -c 'show_menu Debian'" \
     --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
-    --field="❌ Exit":FBTN "bash -c 'exit 0'" 
+    --field="❌ Exit":FBTN "!echo exit"
 
-  # If yad exits normally, break the loop
+  # If the user pressed "Exit" or closed the window, break the loop
   if [[ $? -ne 0 ]]; then
     break
   fi
