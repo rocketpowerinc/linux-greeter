@@ -2,12 +2,12 @@
 
 show_menu() {
   local distro=$1
-  export -f install_package
+  export -f cheatsheet
   export -f update_system
 
   yad --form --center --title "Manage $distro" --width=600 --height=400 \
     --button=Back:1 --button=OK:0 --button=Cancel:252 \
-    --field="Install":BTN "bash -c 'install_package "$distro"'" \
+    --field="Install":BTN "bash -c 'cheatsheet "$distro"'" \
     --field="Update":BTN "bash -c 'update_system "$distro"'"
 
   case $? in
@@ -20,11 +20,11 @@ show_menu() {
   esac
 }
 
-install_package() {
+cheatsheet() {
   local distro=$1
   case "$distro" in
   Debian)
-    x-terminal-emulator -e bash -c "sudo apt install -y <package>; echo 'Press Enter to exit...'; read"
+    x-terminal-emulator -e bash -c "nano cheatsheet.md"
     ;;
   Arch)
     x-terminal-emulator -e bash -c "sudo pacman -S --noconfirm <package>; echo 'Press Enter to exit...'; read"
