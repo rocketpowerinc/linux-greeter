@@ -47,14 +47,10 @@ yad --title="" \
   --field="✏️  Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="🖥️  Distro":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
   --field="🗑️  Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
-  --field"❌ Exit":1
+  --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
 
-# Handle the exit button action
-if [ $choice -eq 1 ]; then
-  exit 0
-fi
 
 # Clean up by removing the downloaded repository
 rm -rf "$DOWNLOAD_PATH"
