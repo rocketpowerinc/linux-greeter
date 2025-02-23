@@ -27,10 +27,10 @@ cheatsheet() {
     xdg-open https://rocketdashboard.notion.site/pwr-Debian-Cheat-sheet-1a3627bc6fd880e8aaaacde44983ba26?pvs=4
     ;;
   Arch)
-    x-terminal-emulator -e bash -c "sudo pacman -S --noconfirm <package>; echo 'Press Enter to exit...'; read"
+    xdg-open https://rocketdashboard.notion.site/pwr-arch-Cheat-Sheet-1a3627bc6fd880fa9301d4660c4f2017?pvs=4
     ;;
   Nix)
-    x-terminal-emulator -e bash -c "nix-env -i <package>; echo 'Press Enter to exit...'; read"
+    xdg-open https://rocketdashboard.notion.site/pwr-nix-Cheat-Sheet-1a3627bc6fd880d18d1fee8e97f0e7fc?pvs=4
     ;;
   esac
 }
