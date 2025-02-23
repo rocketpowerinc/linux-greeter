@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-
-
 show_menu() {
   local distro=$1
   export -f cheatsheet
@@ -39,11 +37,43 @@ cheatsheet() {
 
 export -f cheatsheet
 
+#update_system() {
+#  local distro=$1
+#  case "$distro" in
+#  Debian)
+#    x-terminal-emulator -e bash -c "sudo apt update && sudo apt upgrade -y; echo 'Press Enter to exit...'; read"
+#    ;;
+#  Arch)
+#    if [ -n "$WAYLAND_DISPLAY" ]; then
+#      kitty -- bash -c "sudo pacman -Syu --noconfirm; echo 'Press Enter to exit...'; read"
+#    elif [ -n "$DISPLAY" ]; then
+#      x-terminal-emulator -e bash -c "sudo pacman -Syu --noconfirm; echo 'Press Enter to exit...'; read"
+#    else
+#      echo "No display server found."
+#    fi
+#    ;;
+#  Nix)
+#    x-terminal-emulator -e bash -c "nix-channel --update && nix-env -u; echo 'Press Enter to exit...'; read"
+#    ;;
+#  esac
+#}
+
+# Function to update the system
 update_system() {
   local distro=$1
   case "$distro" in
   Debian)
-    x-terminal-emulator -e bash -c "sudo apt update && sudo apt upgrade -y; echo 'Press Enter to exit...'; read"
+    # Show the dialog and get the user's response
+    response=$(yad --title="System Update" --text="This will run \`sudo apt update &amp;&amp; sudo apt upgrade -y\`. Continue?" --button="Yes:0" --button="No:1")
+
+    # Check the user's response
+    if [[ $? -eq 0 ]]; then
+      # User clicked "Yes"
+      x-terminal-emulator -e bash -c "sudo apt update && sudo apt upgrade -y; echo 'Press Enter to exit...'; read"
+    else
+      # User clicked "No"
+      echo "Operation cancelled."
+    fi
     ;;
   Arch)
     if [ -n "$WAYLAND_DISPLAY" ]; then
@@ -62,7 +92,6 @@ update_system() {
 
 export -f update_system
 
-
 #*################################ MUST BE AT THE BOTTOM ################################
 
 yad --title="Select Distro" \
@@ -73,5 +102,3 @@ yad --title="Select Distro" \
   --field="🐧 Debian":FBTN "bash -c 'show_menu Debian'" \
   --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
-
-
