@@ -46,7 +46,7 @@ yad --title="" \
   --field="$(printf '\uF1D3')       Titus LinUtil  ":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
   --field="$(printf '\uF573')       View Dotfiles  ":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="$(printf '\uF17C')       Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
-  --field="$(printf '\e[36m\uE70C\e[0m\n')       ScriptBin      ":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
+--field="$(printf '\e[36m\uE70C\e[0m  ScriptBin      ':FBTN 'bash -c "$DOWNLOAD_PATH/button_open_scriptbin.sh"')"
   --field="$(printf '\uF023')       Members Only   ":FBTN "bash -c 'echo PlaceHolder'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
