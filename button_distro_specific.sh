@@ -11,8 +11,8 @@ show_menu() {
     --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Manage $distro ⚡🚀</span>\n\n" \
     --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
     --field="♻️ Update":FBTN "bash -c 'update_system \"$distro\"'" \
-    --field="🔙 Back":FBTN "bash -c 'exit 1'" \
-    --field="❌ Exit":FBTN "bash -c 'exit 0'"
+    --field="🔙 Back":FBTN "bash -c 'pwr-greeter" \
+    --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
   if [[ $? -eq 1 ]]; then
     return # Go back to the main menu
@@ -69,9 +69,6 @@ while true; do
     --field="🐧 Nix":FBTN "bash -c 'show_menu Nix'" \
     --field="🐧 Debian":FBTN "bash -c 'show_menu Debian'" \
     --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
-    --field="❌ Exit":FBTN "bash -c 'exit 0'"
+    --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
-  if [[ $? -eq 0 ]]; then
-    exit 0 # Exit if the user clicks "Exit"
-  fi
 done
