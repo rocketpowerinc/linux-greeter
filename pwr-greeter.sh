@@ -46,7 +46,7 @@ yad --title="" \
   --field="🐧  LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
   --field="✏️  Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="🖥️  Distro":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
-  --field="🗑️  Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
+  --field="🗑️  ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
