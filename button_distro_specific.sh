@@ -8,7 +8,7 @@ show_menu() {
   yad --title="Manage $distro" \
     --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
-    --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Manage $distro ⚡🚀</span>\n\n" \
+    --text-align=center --text="<span size='x-large' foreground='gold'>$(printf '\uF306')   Manage $distro ⚡🚀</span>\n\n" \
     --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
     --field="♻️ Update":FBTN "bash -c 'update_system \"$distro\"'" \
     --field="❌ Exit":FBTN "bash -c 'pkill yad'"
