@@ -40,13 +40,13 @@ yad --title="" \
   --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n
             <span size='medium' foreground='white'>$current_date</span>\n\n\n" \
   --field="$(printf '\uF269')       ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
-  --field="📦  Manage apt pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
-  --field="📦  Manage Flatpaks":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
-  --field="📦  Manage Nix pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
+  --field="$(printf '\uF0C7')         Manage apt pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
+  --field="$(printf '\uF0C7')         Manage Flatpaks":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
+  --field="$(printf '\uF0C7')         Manage Nix pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
   --field="$(printf '\uF1D3')       Titus LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
-  --field="✏️  View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
+  --field="$(printf '\uF1C5')       View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="$(printf '\uF17C')     Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
-  --field="$(printf '\uF1C5')     ScriptBin      ":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
+  --field="$(printf '\uF1F8')     ScriptBin      ":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
   --field="$(printf '\uF023')     Members Only   ":FBTN "bash -c 'echo PlaceHolder'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
