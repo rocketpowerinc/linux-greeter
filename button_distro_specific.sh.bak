@@ -5,14 +5,19 @@ show_menu() {
   export -f cheatsheet
   export -f update_system
 
-  yad --title="Manage $distro" \
-    --width=600 --height=400 \
-    --form --columns=2 --align=center --no-buttons --dark \
-    --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Manage $distro ⚡🚀</span>\n\n" \
-    --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
-    --field="♻️ Update":FBTN "bash -c 'update_system \"$distro\"'" \
-    --field="🔙 Back":FBTN "bash -c 'return'" \
-    --field="❌ Exit":FBTN "bash -c 'exit 0'"
+  yad --form --center --title "Manage $distro" --width=600 --height=400 \
+    --button=Back:1 --button=OK:0 --button=Cancel:252 \
+    --field="📖 Cheatsheet":BTN "bash -c 'cheatsheet "$distro"'" \
+    --field="♻️ Update":BTN "bash -c 'update_system "$distro"'"
+
+  case $? in
+  1)
+    return # Go back to the previous screen
+    ;;
+  252)
+    exit 0 # Exit if cancel button is clicked
+    ;;
+  esac
 }
 
 cheatsheet() {
@@ -38,8 +43,10 @@ update_system() {
     ;;
   Arch)
     if [ -n "$WAYLAND_DISPLAY" ]; then
+      # Running on Wayland
       kitty -- bash -c "sudo pacman -Syu --noconfirm; echo 'Press Enter to exit...'; read"
     elif [ -n "$DISPLAY" ]; then
+      # Running on X
       x-terminal-emulator -e bash -c "sudo pacman -Syu --noconfirm; echo 'Press Enter to exit...'; read"
     else
       echo "No display server found."
@@ -52,13 +59,18 @@ update_system() {
 }
 
 while true; do
-  yad --title="Select Distro" \
-    --width=600 --height=600 \
-    --form --columns=2 --align=center --no-buttons --dark \
-    --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Select Your Distro ⚡🚀</span>\n\n" \
-    --field="🐧 Nix":FBTN "bash -c 'show_menu Nix'" \
-    --field="🐧 Debian":FBTN "bash -c 'show_menu Debian'" \
-    --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
-    --field="❌ Exit":FBTN "bash -c 'exit 0'"
+  distro=$(yad --list --radiolist --column "Select" --column "Distro" \
+    FALSE Nix FALSE Debian FALSE Arch \
+    --title "Select Distro" --center --width=600 --height=400 --print-column=2 --separator="\n")
 
+  case $? in
+  1 | 252)
+    exit 0 # Exit if cancel or close button is clicked
+    ;;
+  esac
+
+  if [ -n "$distro" ]; then
+    distro=$(echo "$distro" | tr -d '|')
+    show_menu "$distro"
+  fi
 done
