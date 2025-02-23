@@ -6,7 +6,8 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 ####################* Check if Nix is already installed
-if command -v nix >/dev/null 2>&1; then
+# Check if Nix is installed using the which command
+if which nix >/dev/null 2>&1; then
   echo -e "${GREEN}Nix Package Manager is already installed${NC}"
 else
   # Ask the user if they want to install Nix via Zenity
