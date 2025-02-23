@@ -1,16 +1,5 @@
 #!/usr/bin/env bash
 
-yad --title="Select Distro" \
-  --width=600 --height=600 \
-  --form --columns=2 --align=center --no-buttons --dark \
-  --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Select Your Distro ⚡🚀</span>\n\n" \
-  --field="🐧 Nix":FBTN "bash -c 'show_menu Nix'" \
-  --field="🐧 Debian":FBTN "bash -c 'show_menu Debian'" \
-  --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
-  --field="❌ Exit":FBTN "bash -c 'pkill yad'"
-
-
-
 
 
 show_menu() {
@@ -72,4 +61,17 @@ update_system() {
 }
 
 export -f update_system
+
+
+#*################################ MUST BE AT THE BOTTOM ################################
+
+yad --title="Select Distro" \
+  --width=600 --height=600 \
+  --form --columns=2 --align=center --no-buttons --dark \
+  --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Select Your Distro ⚡🚀</span>\n\n" \
+  --field="🐧 Nix":FBTN "bash -c 'show_menu Nix'" \
+  --field="🐧 Debian":FBTN "bash -c 'show_menu Debian'" \
+  --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
+  --field="❌ Exit":FBTN "bash -c 'pkill yad'"
+
 
