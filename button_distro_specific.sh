@@ -11,24 +11,32 @@ show_menu() {
     --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Manage $distro ⚡🚀</span>\n\n" \
     --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
     --field="♻️ Update":FBTN "bash -c 'update_system \"$distro\"'" \
-    --field="🔙 Back":FBTN "bash -c 'return'" \
+    --field="🔙 Back":FBTN "bash -c 'exit 1'" \
     --field="❌ Exit":FBTN "bash -c 'exit 0'"
+
+  if [[ $? -eq 1 ]]; then
+    return # Go back to the main menu
+  fi
 }
+
+export -f show_menu
 
 cheatsheet() {
   local distro=$1
   case "$distro" in
   Debian)
-    xdg-open https://rocketdashboard.notion.site/pwr-Debian-Cheat-sheet-1a3627bc6fd880e8aaaacde44983ba26?pvs=4
+    xdg-open "https://rocketdashboard.notion.site/pwr-Debian-Cheat-sheet-1a3627bc6fd880e8aaaacde44983ba26?pvs=4"
     ;;
   Arch)
-    xdg-open https://rocketdashboard.notion.site/pwr-arch-Cheat-Sheet-1a3627bc6fd880fa9301d4660c4f2017?pvs=4
+    xdg-open "https://rocketdashboard.notion.site/pwr-arch-Cheat-Sheet-1a3627bc6fd880fa9301d4660c4f2017?pvs=4"
     ;;
   Nix)
-    xdg-open https://rocketdashboard.notion.site/pwr-nix-Cheat-Sheet-1a3627bc6fd880d18d1fee8e97f0e7fc?pvs=4
+    xdg-open "https://rocketdashboard.notion.site/pwr-nix-Cheat-Sheet-1a3627bc6fd880d18d1fee8e97f0e7fc?pvs=4"
     ;;
   esac
 }
+
+export -f cheatsheet
 
 update_system() {
   local distro=$1
@@ -51,6 +59,8 @@ update_system() {
   esac
 }
 
+export -f update_system
+
 while true; do
   yad --title="Select Distro" \
     --width=600 --height=600 \
@@ -61,4 +71,7 @@ while true; do
     --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
     --field="❌ Exit":FBTN "bash -c 'exit 0'"
 
+  if [[ $? -eq 0 ]]; then
+    exit 0 # Exit if the user clicks "Exit"
+  fi
 done
