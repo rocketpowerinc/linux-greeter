@@ -37,34 +37,15 @@ cheatsheet() {
 
 export -f cheatsheet
 
-#update_system() {
-#  local distro=$1
-#  case "$distro" in
-#  Debian)
-#    x-terminal-emulator -e bash -c "sudo apt update && sudo apt upgrade -y; echo 'Press Enter to exit...'; read"
-#    ;;
-#  Arch)
-#    if [ -n "$WAYLAND_DISPLAY" ]; then
-#      kitty -- bash -c "sudo pacman -Syu --noconfirm; echo 'Press Enter to exit...'; read"
-#    elif [ -n "$DISPLAY" ]; then
-#      x-terminal-emulator -e bash -c "sudo pacman -Syu --noconfirm; echo 'Press Enter to exit...'; read"
-#    else
-#      echo "No display server found."
-#    fi
-#    ;;
-#  Nix)
-#    x-terminal-emulator -e bash -c "nix-channel --update && nix-env -u; echo 'Press Enter to exit...'; read"
-#    ;;
-#  esac
-#}
-
 # Function to update the system
 update_system() {
   local distro=$1
   case "$distro" in
   Debian)
     # Show the dialog and get the user's response
-    response=$(yad --title="System Update" --text="This will run \`sudo apt update &amp;&amp; sudo apt upgrade -y\`. Continue?" --button="Yes:0" --button="No:1")
+    #response=$(yad --title="System Update" --text="This will run \`sudo apt update &amp;&amp; sudo apt upgrade -y\`. Continue?" --button="Yes:0" --button="No:1")
+    response=$(yad --title="System Update" --text="This will run \`sudo apt update &amp;&amp; sudo apt upgrade -y\`.\n\nContinue?" --button="Yes:0" --button="No:1")
+
 
     # Check the user's response
     if [[ $? -eq 0 ]]; then
