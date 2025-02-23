@@ -42,7 +42,15 @@ update_system() {
     x-terminal-emulator -e bash -c "sudo apt update && sudo apt upgrade -y; echo 'Press Enter to exit...'; read"
     ;;
   Arch)
-    x-terminal-emulator -e bash -c "sudo pacman -Syu --noconfirm; echo 'Press Enter to exit...'; read"
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+      # Running on Wayland
+      kitty -- bash -c "sudo pacman -Syu --noconfirm; echo 'Press Enter to exit...'; read"
+    elif [ -n "$DISPLAY" ]; then
+      # Running on X
+      x-terminal-emulator -e bash -c "sudo pacman -Syu --noconfirm; echo 'Press Enter to exit...'; read"
+    else
+      echo "No display server found."
+    fi
     ;;
   Nix)
     x-terminal-emulator -e bash -c "nix-channel --update && nix-env -u; echo 'Press Enter to exit...'; read"
