@@ -45,8 +45,9 @@ yad --title="" \
   --field="📦  Manage Nix pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
   --field="👽  Titus LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
   --field="✏️  View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
-  --field="🐧  Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
-  --field="🗑️  ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
+  --field="$(printf '\uF17C')     Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
+  --field="$(printf '\uF1C5')     ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
+  --field="$(printf '\uF023')     Members Only":FBTN "bash -c 'echo PlaceHolder'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
