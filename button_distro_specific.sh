@@ -24,7 +24,7 @@ cheatsheet() {
   local distro=$1
   case "$distro" in
   Debian)
-    x-terminal-emulator -e bash -c "xdg-open https://rocketdashboard.notion.site/pwr-Debian-Cheat-sheet-1a3627bc6fd880e8aaaacde44983ba26?pvs=4"
+    xdg-open https://rocketdashboard.notion.site/pwr-Debian-Cheat-sheet-1a3627bc6fd880e8aaaacde44983ba26?pvs=4
     ;;
   Arch)
     x-terminal-emulator -e bash -c "sudo pacman -S --noconfirm <package>; echo 'Press Enter to exit...'; read"
