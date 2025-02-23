@@ -44,7 +44,7 @@ update_system() {
   Debian)
     # Show the dialog and get the user's response
     #response=$(yad --title="System Update" --text="This will run \`sudo apt update &amp;&amp; sudo apt upgrade -y\`. Continue?" --button="Yes:0" --button="No:1")
-    response=$(yad --title="System Update" --text="This will run \`sudo apt update &amp;&amp; sudo apt upgrade -y\`.\n\nContinue?" --button="Yes:0" --button="No:1")
+    response=$(yad --title="System Update" --text="RUN: sudo apt update &amp;&amp; sudo apt upgrade -y" --button="Yes:0" --button="No:1")
 
 
     # Check the user's response
