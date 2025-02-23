@@ -7,13 +7,13 @@ show_menu() {
 
   case "$distro" in
   Debian)
-    local title="<span size='x-large' foreground='purple'>$(printf '\uF306')   $distro - Dashboard   $(printf '\uF306')</span>\n\n"
+    local title="<span size='x-large' foreground='violet'>$(printf '\uF306')   $distro - Dashboard   $(printf '\uF306')</span>\n\n"
     ;;
   Arch)
-    local title="<span size='x-large' foreground='blue'>$(printf '\uF303')   $distro - Dashboard   $(printf '\uF303')</span>\n\n"
+    local title="<span size='x-large' foreground='lightblue'>$(printf '\uF303')   $distro - Dashboard   $(printf '\uF303')</span>\n\n"
     ;;
   Nix)
-    local title="<span size='x-large' foreground='green'>$(printf '\uF312')   $distro - Dashboard   $(printf '\uF312')</span>\n\n"
+    local title="<span size='x-large' foreground='blue'>$(printf '\uF313')   $distro - Dashboard   $(printf '\uF313')</span>\n\n"
     ;;
   *)
     local title="<span size='x-large' foreground='purple'>$(printf '\uF306')   $distro - Dashboard   $(printf '\uF306')</span>\n\n"
