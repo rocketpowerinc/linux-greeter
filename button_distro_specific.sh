@@ -5,10 +5,25 @@ show_menu() {
   export -f cheatsheet
   export -f update_system
 
+  case "$distro" in
+  Debian)
+    local title="<span size='x-large' foreground='purple'>$(printf '\uF306')   $distro - Dashboard   $(printf '\uF306')</span>\n\n"
+    ;;
+  Arch)
+    local title="<span size='x-large' foreground='blue'>$(printf '\uF303')   $distro - Dashboard   $(printf '\uF303')</span>\n\n"
+    ;;
+  Nix)
+    local title="<span size='x-large' foreground='green'>$(printf '\uF312')   $distro - Dashboard   $(printf '\uF312')</span>\n\n"
+    ;;
+  *)
+    local title="<span size='x-large' foreground='purple'>$(printf '\uF306')   $distro - Dashboard   $(printf '\uF306')</span>\n\n"
+    ;;
+  esac
+
   yad --title="" \
     --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
-    --text-align=center --text="<span size='x-large' foreground='purple'>$(printf '\uF306')   $distro - Dashboard   $(printf '\uF306')</span>\n\n" \
+    --text-align=center --text="$title" \
     --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
     --field="♻️ Update":FBTN "bash -c 'update_system \"$distro\"'" \
     --field="❌ Exit":FBTN "bash -c 'pkill yad'"
@@ -43,9 +58,7 @@ update_system() {
   case "$distro" in
   Debian)
     # Show the dialog and get the user's response
-    #response=$(yad --title="System Update" --text="This will run \`sudo apt update &amp;&amp; sudo apt upgrade -y\`. Continue?" --button="Yes:0" --button="No:1")
     response=$(yad --title="System Update" --text="RUN: sudo apt update &amp;&amp; sudo apt upgrade -y" --button="Yes:0" --button="No:1")
-
 
     # Check the user's response
     if [[ $? -eq 0 ]]; then
@@ -83,4 +96,3 @@ yad --title="Select Distro" \
   --field="$(printf '\uF306')   Debian":FBTN "bash -c 'show_menu Debian'" \
   --field="$(printf '\uF303')   Arch":FBTN "bash -c 'show_menu Arch'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
-
