@@ -47,8 +47,8 @@ yad --title="" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF573')</span>     View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF17C')</span>     Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uE70C')</span>     ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
-  --field="<span foreground='#FFFFFF'>$(printf '\uF023')    Members Only":FBTN "bash -c 'echo PlaceHolder'" \
-  --field="❌   Exit":FBTN "bash -c 'pkill yad'"
+  --field="<span foreground='#FFFFFF'>$(printf '\uF023')</span>     Members Only":FBTN "bash -c 'echo PlaceHolder'" \
+  --field="<span foreground='#FFFFFF'>$</span> ❌   Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
 
