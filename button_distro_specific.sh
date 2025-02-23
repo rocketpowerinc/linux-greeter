@@ -7,7 +7,7 @@ show_menu() {
 
   yad --form --center --title "Manage $distro" --width=600 --height=400 \
     --button=Back:1 --button=OK:0 --button=Cancel:252 \
-    --field="Install":BTN "bash -c 'cheatsheet "$distro"'" \
+    --field="Cheatsheet":BTN "bash -c 'cheatsheet "$distro"'" \
     --field="Update":BTN "bash -c 'update_system "$distro"'"
 
   case $? in
@@ -24,7 +24,7 @@ cheatsheet() {
   local distro=$1
   case "$distro" in
   Debian)
-    x-terminal-emulator -e bash -c "nano cheatsheet.md"
+    x-terminal-emulator -e bash -c "xdg-open https://rocketdashboard.notion.site/pwr-Debian-Cheat-sheet-1a3627bc6fd880e8aaaacde44983ba26?pvs=4"
     ;;
   Arch)
     x-terminal-emulator -e bash -c "sudo pacman -S --noconfirm <package>; echo 'Press Enter to exit...'; read"
