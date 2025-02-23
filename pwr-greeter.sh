@@ -43,9 +43,9 @@ yad --title="" \
   --field="📦  Manage apt pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
   --field="📦  Manage Flatpaks":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
   --field="📦  Manage Nix pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
-  --field="🐧  Titus LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
+  --field="👽  Titus LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
   --field="✏️  View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
-  --field="🖥️  Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
+  --field="🐧  Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
   --field="🗑️  ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
