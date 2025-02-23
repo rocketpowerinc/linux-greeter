@@ -1,44 +1,5 @@
 #!/usr/bin/env bash
 
-# Define colors
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
-
-####################* Check if Nix is already installed
-if command -v nix >/dev/null 2>&1; then
-  echo -e "${GREEN}Nix Package Manager is already installed${NC}"
-else
-  # Ask the user if they want to install Nix (in yellow)
-  echo -e "${YELLOW}Nix Package Manager is not installed. Do you want to install it? (yes/no): ${NC}\c"
-  read choice
-  case "$choice" in
-  [Yy]*)
-    echo "Installing Nix Package Manager..."
-
-    # Install Nix
-    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
-
-    # Ensure environment is updated
-    if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
-      . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    else
-      echo "Warning: nix-daemon.sh not found. You may need to restart your shell."
-    fi
-
-    echo -e "${GREEN}Nix Package Manager has been successfully installed${NC}"
-    ;;
-  [Nn]*)
-    echo "Skipping Nix installation."
-    ;;
-  *)
-    echo "Invalid input. Skipping installation."
-    ;;
-  esac
-fi
-
-#*#################################################################
-
 # Define the repository URL and the download path
 REPO_URL="https://github.com/rocketpowerinc/appbundles.git"
 DOWNLOAD_PATH="$HOME/Downloads/appbundles"
@@ -87,8 +48,8 @@ INSTALL_SELECTION=$(zenity --list --checklist --title="Nix Manager - Install" --
   --column="Select" --column="Application" --column="Category" "${AVAILABLE_LIST[@]}" --separator="|" --width=800 --height=600)
 
 # Convert SELECTION into arrays
-IFS='|' read -r -a UNINSTALLING <<<"$UNINSTALL_SELECTION"
-IFS='|' read -r -a INSTALLING <<<"$INSTALL_SELECTION"
+IFS='|' read -r -a UNINSTALLING <<< "$UNINSTALL_SELECTION"
+IFS='|' read -r -a INSTALLING <<< "$INSTALL_SELECTION"
 
 # Process uninstallation of unchecked apps
 for APP in "${UNINSTALLING[@]}"; do
