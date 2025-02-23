@@ -37,7 +37,8 @@ current_date=$(date +"%A, %B %d, %Y, %I:%M %p")
 yad --title="" \
     --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
-    --text-align=center --text="<span size='x-large' foreground='gold'></span>\n \n" \
+    --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n
+            <span size='medium' foreground='white'>$current_date</span>\n\n\n" \
     --field="🌐  ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
     --field="📦  APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
     --field="📦  Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
@@ -56,19 +57,6 @@ choice=$?
 #            <span size='medium' foreground='white'>$current_date</span>\n\n\n" \
 
 
-
-# Trigger the corresponding action based on the button pressed
-#case $choice in
-#    1) bash "$DOWNLOAD_PATH/button_open_website.sh" ;;
-#    2) bash "$DOWNLOAD_PATH/button_packages_apt.sh" ;;
-#    3) bash "$DOWNLOAD_PATH/button_packages_flatpak.sh" ;;
-#    4) bash "$DOWNLOAD_PATH/button_packages_nix.sh" ;;
-#    5) bash "$DOWNLOAD_PATH/button_open_tituslinutil.sh" ;;
-#    6) bash "$DOWNLOAD_PATH/button_open_dotfiles.sh" ;;
-#    7) bash "$DOWNLOAD_PATH/button_distro_updater.sh" ;;
-#    8) bash "$DOWNLOAD_PATH/button_distro_specific.sh" ;;
-#    9) bash "$DOWNLOAD_PATH/button_open_scriptbin.sh" ;;
-#esac
 
 # Clean up by removing the downloaded repository
 rm -rf "$DOWNLOAD_PATH"
