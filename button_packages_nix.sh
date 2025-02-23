@@ -17,9 +17,11 @@ else
 
     # Ensure environment is updated
     if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+      command source ~/.bashrc
       . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     else
-      zenity --warning --text="Warning: nix-daemon.sh not found. You may need to restart your shell." --width=500 --height=200
+      command source ~/.bashrc
+      . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     fi
     zenity --info --text="Nix Package Manager has been successfully installed." --width=500 --height=200
   else
