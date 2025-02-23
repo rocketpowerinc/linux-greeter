@@ -5,7 +5,7 @@ show_menu() {
   export -f cheatsheet
   export -f update_system
 
-  yad --title="Manage $distro" \
+  yad --title="" \
     --width=600 --height=600 \
     --form --columns=2 --align=center --no-buttons --dark \
     --text-align=center --text="<span size='x-large' foreground='purple'>$(printf '\uF306')   $distro - Dashboard   $(printf '\uF306')</span>\n\n" \
