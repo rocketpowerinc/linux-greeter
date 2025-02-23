@@ -35,24 +35,26 @@ current_date=$(date +"%A, %B %d, %Y, %I:%M %p")
 
 # Display the main menu with buttons in the center of the fram
 yad --title="" \
-    --width=600 --height=600 \
-    --form --columns=2 --align=center --no-buttons --dark \
-    --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n
+  --width=600 --height=600 \
+  --form --columns=2 --align=center --no-buttons --dark \
+  --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n
             <span size='medium' foreground='white'>$current_date</span>\n\n\n" \
-    --field="🌐  ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
-    --field="📦  APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
-    --field="📦  Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
-    --field="📦  Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
-    --field="🐧  LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
-    --field="✏️  Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
-    --field="🖥️  Distro":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
-    --field="🗑️  Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
-    --field="❌ Exit":FBTN "bash -c 'exit'"
-
+  --field="🌐  ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
+  --field="📦  APT":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
+  --field="📦  Flatpak":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
+  --field="📦  Nix":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
+  --field="🐧  LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
+  --field="✏️  Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
+  --field="🖥️  Distro":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
+  --field="🗑️  Bin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
+  --button="❌ Exit":1
 
 choice=$?
 
+# Handle the exit button action
+if [ $choice -eq 1 ]; then
+  exit 0
+fi
 
 # Clean up by removing the downloaded repository
 rm -rf "$DOWNLOAD_PATH"
-
