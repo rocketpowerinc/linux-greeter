@@ -39,11 +39,11 @@ yad --title="" \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n
             <span size='medium' foreground='white'>$current_date</span>\n\n\n" \
-  --field="🌐  ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
+  --field="$(printf '\uF269')       ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
   --field="📦  Manage apt pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
   --field="📦  Manage Flatpaks":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
   --field="📦  Manage Nix pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
-  --field="👽  Titus LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
+  --field="$(printf '\uF1D3')       Titus LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
   --field="✏️  View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="$(printf '\uF17C')     Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
   --field="$(printf '\uF1C5')     ScriptBin      ":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
