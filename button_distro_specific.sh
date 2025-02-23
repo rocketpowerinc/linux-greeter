@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+yad --title="Select Distro" \
+  --width=600 --height=600 \
+  --form --columns=2 --align=center --no-buttons --dark \
+  --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Select Your Distro ⚡🚀</span>\n\n" \
+  --field="🐧 Nix":FBTN "bash -c 'show_menu Nix'" \
+  --field="🐧 Debian":FBTN "bash -c 'show_menu Debian'" \
+  --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
+  --field="❌ Exit":FBTN "bash -c 'pkill yad'"
+
+
+
+
+
 show_menu() {
   local distro=$1
   export -f cheatsheet
@@ -11,7 +24,6 @@ show_menu() {
     --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Manage $distro ⚡🚀</span>\n\n" \
     --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
     --field="♻️ Update":FBTN "bash -c 'update_system \"$distro\"'" \
-    --field="🔙 Back":FBTN "bash -c 'pwr-greeter" \
     --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
   if [[ $? -eq 1 ]]; then
@@ -61,30 +73,3 @@ update_system() {
 
 export -f update_system
 
-
-
-yad --title="Select Distro" \
-  --width=600 --height=600 \
-  --form --columns=2 --align=center --no-buttons --dark \
-  --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Select Your Distro ⚡🚀</span>\n\n" \
-  --field="🐧 Nix":FBTN "bash -c 'show_menu Nix'" \
-  --field="🐧 Debian":FBTN "bash -c 'show_menu Debian'" \
-  --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
-  --field="❌ Exit":FBTN "bash -c 'pkill yad'"
-
-
-#while true; do
-#  yad --title="Select Distro" \
-#    --width=600 --height=600 \
-#    --form --columns=2 --align=center --no-buttons --dark \
-#    --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Select Your Distro ⚡🚀</span>\n\n" \
-#    --field="🐧 Nix":FBTN "bash -c 'show_menu Nix'" \
-#    --field="🐧 Debian":FBTN "bash -c 'show_menu Debian'" \
-#    --field="🐧 Arch":FBTN "bash -c 'show_menu Arch'" \
-#    --field="❌ Exit":FBTN "bash -c 'pkill yad'"
-#
-#  # If the user pressed "Exit" or closed the window, break the loop
-#  if [[ $? -ne 0 ]]; then
-#    break
-#  fi
-#done
