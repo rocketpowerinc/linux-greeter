@@ -45,7 +45,7 @@ while IFS='|' read -r CATEGORY APP; do
     SELECTED=$(echo "$INSTALLED_APPS" | grep -q "^$APP$" && echo TRUE || echo FALSE)
     APP_LIST+=("$SELECTED" "$APP" "$CATEGORY")
     MASTER_APPS+=("$APP")
-done < "$MASTER_FILE"
+done <"$MASTER_FILE"
 
 # Function to update the checklist
 update_checklist() {
@@ -58,7 +58,7 @@ update_checklist() {
         fi
         SELECTED=$selected_all
         APP_LIST+=("$SELECTED" "$APP" "$CATEGORY")
-    done < "$MASTER_FILE"
+    done <"$MASTER_FILE"
 }
 
 # Initial display of selection dialog
@@ -92,7 +92,7 @@ while IFS='|' read -r CATEGORY APP; do
     if [[ "$INSTALLED_APPS" =~ "$APP" ]] && ! echo "$SELECTION" | grep -q "$APP"; then
         (flatpak uninstall -y "$APP" | tee >(zenity --progress --title="Uninstalling $APP" --text="Uninstalling..." --pulsate --auto-close --width=500 --height=200)) || show_error "Error uninstalling $APP"
     fi
-done < "$MASTER_FILE"
+done <"$MASTER_FILE"
 
 # Process installation of selected apps
 for APP in $SELECTION; do
@@ -105,3 +105,29 @@ zenity --info --text="Operation completed." --width=500 --height=200
 
 # Clean up
 rm -rf "$DOWNLOAD_PATH"
+
+###############
+#!/bin/bash
+
+# Directory to store the desktop entries
+flatpak_desktop_dir=~/.local/share/applications/flatpak_apps
+mkdir -p "$flatpak_desktop_dir"
+
+# Remove old desktop entries
+rm -f "$flatpak_desktop_dir"/*.desktop
+
+# List Flatpak applications and create desktop entries
+flatpak list --app --columns=application,name | while IFS=$'\t' read -r app name; do
+    echo "[Desktop Entry]
+Name=$name
+Exec=flatpak run $app
+Icon=application-default-icon
+Type=Application
+" >"$flatpak_desktop_dir/$app.desktop"
+done
+
+# Launch yad to choose and run a Flatpak application
+yad --icons --read-dir="$flatpak_desktop_dir" \
+    --width=600 --height=480 --title="Installed Flatpaks" --compact \
+    --text="Please double-click to launch an application" \
+    --dark-mode
