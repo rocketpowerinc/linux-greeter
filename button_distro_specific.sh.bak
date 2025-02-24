@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-# Function to show the menu for each distribution
 show_menu() {
   local distro=$1
   export -f cheatsheet
   export -f update_system
-  export -f rebuild_nixos
 
   case "$distro" in
   Debian)
@@ -22,36 +20,21 @@ show_menu() {
     ;;
   esac
 
-  if [[ "$distro" == "Nix" ]]; then
-    # Only show the "Rebuild NixOS" button if the distro is Nix
-    yad --title="" \
-      --width=600 --height=600 \
-      --form --columns=2 --align=center --no-buttons --dark \
-      --text-align=center --text="$title" \
-      --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
-      --field="♻️ Update":FBTN "bash -c 'update_system \"$distro\"'" \
-      --field="🔄 Rebuild NixOS":FBTN "bash -c 'rebuild_nixos'" \
-      --field="❌ Exit":FBTN "bash -c 'pkill yad'"
-  else
-    # Show the menu without the "Rebuild NixOS" button for other distros
-    yad --title="" \
-      --width=600 --height=600 \
-      --form --columns=2 --align=center --no-buttons --dark \
-      --text-align=center --text="$title" \
-      --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
-      --field="♻️ Update":FBTN "bash -c 'update_system \"$distro\"'" \
-      --field="❌ Exit":FBTN "bash -c 'pkill yad'"
-  fi
+  yad --title="" \
+    --width=600 --height=600 \
+    --form --columns=2 --align=center --no-buttons --dark \
+    --text-align=center --text="$title" \
+    --field="📖 Cheatsheet":FBTN "bash -c 'cheatsheet \"$distro\"'" \
+    --field="♻️ Update":FBTN "bash -c 'update_system \"$distro\"'" \
+    --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
   if [[ $? -eq 1 ]]; then
     return # Go back to the main menu
   fi
 }
 
-# Export the show_menu function
 export -f show_menu
 
-# Function to open the cheatsheet based on the distro
 cheatsheet() {
   local distro=$1
   case "$distro" in
@@ -67,10 +50,9 @@ cheatsheet() {
   esac
 }
 
-# Export the cheatsheet function
 export -f cheatsheet
 
-# Function to update the system based on the distro
+# Function to update the system
 update_system() {
   local distro=$1
   case "$distro" in
@@ -102,19 +84,10 @@ update_system() {
   esac
 }
 
-# Export the update_system function
 export -f update_system
 
-# Function to rebuild NixOS system
-rebuild_nixos() {
-  # Trigger the nixos rebuild switch command with sudo
-  sudo nixos-rebuild switch
-}
+#*################################ MUST BE AT THE BOTTOM ################################
 
-# Export the rebuild_nixos function
-export -f rebuild_nixos
-
-# Main menu for selecting the distribution
 yad --title="Select Distro" \
   --width=600 --height=600 \
   --form --columns=2 --align=center --no-buttons --dark \
