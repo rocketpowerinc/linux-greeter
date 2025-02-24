@@ -44,7 +44,7 @@ yad --title="" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF0C7')</span>     Manage Flatpaks":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF0C7')</span>     Manage Nix pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF1D3')</span>     Titus LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
-  --field="<span foreground='#FFFFFF'>$(printf '\uF573')</span>     View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
+  --field="<span foreground='#FFFFFF'>$(printf '\uF1C5')</span>     View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF17C')</span>     Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uE70C')</span>     ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF023')</span>     Members Only":FBTN "bash -c 'echo PlaceHolder'" \
