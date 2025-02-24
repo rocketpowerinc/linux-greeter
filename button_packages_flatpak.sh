@@ -106,7 +106,7 @@ zenity --info --text="Operation completed." --width=500 --height=200
 # Clean up
 rm -rf "$DOWNLOAD_PATH"
 
-###############
+#*############## LAUNCH FLATPAK APPLICATIONS ##############
 
 # Directory to store the desktop entries
 flatpak_desktop_dir=~/.local/share/applications/flatpak_apps
