@@ -126,7 +126,8 @@ Type=Application
 done
 
 # Launch yad to choose and run a Flatpak application
-yad --icons --read-dir="$flatpak_desktop_dir" \
+yad --icons \
+    --read-dir="$flatpak_desktop_dir" \
     --width=600 --height=600 --title="Installed Flatpaks" --compact \
     --text="Please double-click to launch an application" \
-    --dark-mode
+
