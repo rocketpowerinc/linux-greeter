@@ -107,7 +107,6 @@ zenity --info --text="Operation completed." --width=500 --height=200
 rm -rf "$DOWNLOAD_PATH"
 
 ###############
-#!/bin/bash
 
 # Directory to store the desktop entries
 flatpak_desktop_dir=~/.local/share/applications/flatpak_apps
