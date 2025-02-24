@@ -66,11 +66,11 @@ done <"$MASTER_FILE"
 
 # Display installed apps selection dialog
 UNINSTALL_SELECTION=$(zenity --list --checklist --title="Nix Manager - Uninstall" --text="Select applications to uninstall:" \
-  --column="Select" --column="Application" --column="Category" "${INSTALLED_LIST[@]}" --separator="|" --width=800 --height=600)
+  --column="Select" --column="Application" --column="Category" "${INSTALLED_LIST[@]}" --separator="|" --width=600 --height=600)
 
 # Display available apps selection dialog
 INSTALL_SELECTION=$(zenity --list --checklist --title="Nix Manager - Install" --text="Select applications to install:" \
-  --column="Select" --column="Application" --column="Category" "${AVAILABLE_LIST[@]}" --separator="|" --width=800 --height=600)
+  --column="Select" --column="Application" --column="Category" "${AVAILABLE_LIST[@]}" --separator="|" --width=600 --height=600)
 
 # Convert SELECTION into arrays
 IFS='|' read -r -a UNINSTALLING <<<"$UNINSTALL_SELECTION"

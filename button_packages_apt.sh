@@ -55,7 +55,7 @@ update_checklist() {
 while true; do
   SELECTION=$(zenity --list --checklist --title="APT Manager" --text="Select applications to install/uninstall:" \
     --column="Select" --column="Application" --column="Category" "${APP_LIST[@]}" \
-    --extra-button="Select All" --extra-button="Unselect All" --separator=" " --width=800 --height=600)
+    --extra-button="Select All" --extra-button="Unselect All" --separator=" " --width=600 --height=600)
 
   # Handle Select All and Unselect All buttons
   if [[ "$SELECTION" == "Select All" ]]; then
