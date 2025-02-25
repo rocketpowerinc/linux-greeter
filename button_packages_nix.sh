@@ -97,6 +97,7 @@ rm -rf "$DOWNLOAD_PATH"
 
 
 #*###################### LAUNCH APPLICATIONS ##############
+sleep 2s
 yad --icons \
     --read-dir=/usr/share/applications \
     --width=600 --height=600 --title="Installed Apps" --compact \
