@@ -92,8 +92,7 @@ done
 
 zenity --info --text="Operation completed." --width=500 --height=200
 
-# Clean up
-rm -rf "$DOWNLOAD_PATH"
+
 
 
 #*###################### LAUNCH APPLICATIONS ##############
@@ -102,3 +101,7 @@ yad --icons \
     --read-dir=/usr/share/applications \
     --width=600 --height=600 --title="Installed Apps" --compact \
     --text="Please double-click to Launch an application"
+
+
+    # Clean up
+rm -rf "$DOWNLOAD_PATH"
