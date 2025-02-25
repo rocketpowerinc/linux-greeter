@@ -108,26 +108,8 @@ rm -rf "$DOWNLOAD_PATH"
 
 #*############## LAUNCH FLATPAK APPLICATIONS ##############
 
-# Directory to store the desktop entries
-flatpak_desktop_dir=~/.local/share/applications/flatpak_apps
-mkdir -p "$flatpak_desktop_dir"
-
-# Remove old desktop entries
-rm -f "$flatpak_desktop_dir"/*.desktop
-
-# List Flatpak applications and create desktop entries
-flatpak list --app --columns=application,name | while IFS=$'\t' read -r app name; do
-    echo "[Desktop Entry]
-Name=$name
-Exec=flatpak run $app
-Icon=application-default-icon
-Type=Application
-" >"$flatpak_desktop_dir/$app.desktop"
-done
-
 # Launch yad to choose and run a Flatpak application
 yad --icons \
-    --read-dir="$flatpak_desktop_dir" \
+    --read-dir=/var/lib/flatpak/exports/share/applications/ \
     --width=600 --height=600 --title="Installed Flatpaks" --compact \
-    --text="Please double-click to launch an application" \
-
+    --text="Please double-click to Launch an application"
