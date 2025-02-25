@@ -95,3 +95,23 @@ zenity --info --text="Operation completed." --width=500 --height=200
 # Clean up
 rm -rf "$DOWNLOAD_PATH"
 
+#*###################### LAUNCH APPLICATIONS ##############
+
+# Generate a list of files (including symlinks) in the Nix profile bin directory
+APP_LIST=$(find "$HOME/.nix-profile/bin/" -maxdepth 1 -type l -or -type f)
+
+# Use yad to display the list and capture the selected application
+SELECTED_APP=$(echo "$APP_LIST" | yad --list --column="Applications" --width=600 --height=600 \
+    --title="Installed Apps" --text="Double-click to launch an application" --print-column=1)
+
+# If an application was selected, execute it
+if [[ -n "$SELECTED_APP" ]]; then
+    # Remove unwanted characters (trims spaces, removes trailing | if present)
+    CLEANED_APP=$(echo "$SELECTED_APP" | sed 's/[|]$//' | xargs)
+
+    # Print for debugging
+    echo "Launching: $CLEANED_APP"
+
+    # Execute the application
+    "$CLEANED_APP" &
+fi
