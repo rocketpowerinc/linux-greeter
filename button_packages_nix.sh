@@ -96,13 +96,6 @@ zenity --info --text="Operation completed." --width=500 --height=200
 rm -rf "$DOWNLOAD_PATH"
 
 #*###################### LAUNCH APPLICATIONS ##############
-yad --icons \
-    --read-dir=/var/lib/flatpak/exports/share/applications/ \
-    --width=600 --height=600 --title="Installed Flatpaks" --compact \
-    --text="Please double-click to Launch an application"
-
-
-
 
 yad --icons \
   --read-dir=/usr/share/applications \
