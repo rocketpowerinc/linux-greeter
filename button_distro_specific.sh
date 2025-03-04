@@ -17,6 +17,9 @@ show_menu() {
   Nix)
     local title="<span size='x-large' foreground='blue'>$(printf '\uF313')   $distro - Dashboard   $(printf '\uF313')</span>\n\n"
     ;;
+  Raspberry Pi)
+    local title="<span size='x-large' foreground='blue'>$(printf '\uF315')   $distro - Dashboard   $(printf '\uF313')</span>\n\n"
+    ;;
   *)
     local title="<span size='x-large' foreground='purple'>$(printf '\uF306')   $distro - Dashboard   $(printf '\uF306')</span>\n\n"
     ;;
