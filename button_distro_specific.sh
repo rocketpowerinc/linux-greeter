@@ -67,6 +67,9 @@ cheatsheet() {
   Nix)
     xdg-open "https://rocketdashboard.notion.site/pwr-nix-Cheat-Sheet-1a3627bc6fd880d18d1fee8e97f0e7fc?pvs=4"
     ;;
+  RaspberryPi)
+    xdg-open "https://rocketdashboard.notion.site/pwr-raspberrypi-Cheat-Sheet-1a3627bc6fd880d18d1fee8e97f0e7fc?pvs=4"
+    ;;
   esac
 }
 
@@ -102,6 +105,9 @@ update_system() {
   Nix)
     x-terminal-emulator -e bash -c "nix-channel --update && nix-env -u; echo 'Press Enter to exit...'; read"
     ;;
+  RaspberryPi)
+    x-terminal-emulator -e bash -c "sudo apt update && sudo apt upgrade -y; echo 'Press Enter to exit...'; read"
+    ;;
   esac
 }
 
@@ -125,4 +131,5 @@ yad --title="Select Distro" \
   --field="$(printf '\uF313')   Nix":FBTN "bash -c 'show_menu Nix'" \
   --field="$(printf '\uF306')   Debian":FBTN "bash -c 'show_menu Debian'" \
   --field="$(printf '\uF303')   Arch":FBTN "bash -c 'show_menu Arch'" \
+  --field="$(printf '\uF315')   Raspberry Pi":FBTN "bash -c 'show_menu RaspberryPi'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
