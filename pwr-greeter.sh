@@ -35,8 +35,8 @@ find "$DOWNLOAD_PATH" -type f -name "*.sh" -exec chmod +x {} \;
 yad --title="" \
   --width=600 --height=600 \
   --form --columns=2 --align=center --no-buttons --dark \
-  --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n<br/>\n
-    <span size='x-large' foreground='green'>Linux Edition</span>\n\n\n" \
+  --text-align=center --text="<span size='x-large' foreground='gold'>🚀⚡ Welcome to the Power Greeter ⚡🚀</span>\n
+<span size='x-large' foreground='green'>Linux Edition</span>\n\n\n" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF269')</span>     ReadMe":FBTN "bash -c '$DOWNLOAD_PATH/button_open_website.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF0C7')</span>     Manage apt pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_apt.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF0C7')</span>     Manage Flatpaks":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
