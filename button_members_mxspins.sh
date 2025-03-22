@@ -9,6 +9,7 @@ yad --title="" \
   --field="💣     Doomsday/Prepper Spin":FBTN "bash -c 'echo test'" \
   --field="🎮     Gaming/Pirate Spin":FBTN "bash -c 'echo test'" \
   --field="🧠     Kids/Student Spin":FBTN "bash -c 'echo test'" \
-  --field="📚     Parent/Teacher Spin":FBTN "bash -c 'echo test'"
+  --field="📚     Parent/Teacher Spin":FBTN "bash -c 'echo test'" \
+  --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
