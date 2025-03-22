@@ -30,7 +30,6 @@ fi
 # Make all shell scripts executable
 find "$DOWNLOAD_PATH" -type f -name "*.sh" -exec chmod +x {} \;
 
-
 # Display the main menu with buttons in the center of the fram
 yad --title="" \
   --width=600 --height=600 \
@@ -45,9 +44,9 @@ yad --title="" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF1C5')</span>     View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF17C')</span>     Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uE70C')</span>     ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
-  --field="<span foreground='#FFFFFF'>$(printf '\uF023')</span>     Members Only":FBTN "bash -c 'echo PlaceHolder'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF308')</span>     Docker-Compose":FBTN "bash -c 'echo PlaceHolder'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF3A5')</span>     One Truth":FBTN "bash -c 'echo PlaceHolder'" \
+  --field="<span foreground='#gold'>$(printf '\uF023')</span>     Members Only":FBTN "bash -c 'echo PlaceHolder'" \
   --field="<span foreground='#FFFFFF'></span> ❌   Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
