@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+DOWNLOAD_PATH="$HOME/Downloads/linux-greeter"
+
 # Display the main menu with buttons in the center of the fram
 yad --title="" \
   --width=600 --height=600 \
