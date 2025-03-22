@@ -46,7 +46,7 @@ yad --title="" \
   --field="<span foreground='#FFFFFF'>$(printf '\uE70C')</span>     ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF308')</span>     Docker-Compose":FBTN "bash -c 'echo PlaceHolder'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF3A5')</span>     One Truth":FBTN "bash -c 'echo PlaceHolder'" \
-  --field="<span foreground='gold'>$(printf '\uF023')</span>     Members Only":FBTN "bash -c 'echo PlaceHolder'"
+  --field="<span foreground='gold'>$(printf '\uF023')</span>     Members Only":FBTN "bash -c '$DOWNLOAD_PATH/button_members_only.sh'" 
 
 choice=$?
 
