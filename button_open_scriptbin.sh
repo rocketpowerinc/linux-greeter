@@ -10,7 +10,9 @@ rm -rf "$DOWNLOAD_PATH"
 # Clone the repository
 git clone "$REPO_URL" "$DOWNLOAD_PATH" || show_error "Failed to clone the repository."
 
-mkdir -p $HOME/.local/bin/ && cp -rf $DOWNLOAD_PATH/Linux/* $HOME/.local/bin/
+mkdir -p $HOME/.local/bin/ 
+cp -rf $DOWNLOAD_PATH/Linux/* $HOME/.local/bin/
+cp -rf $DOWNLOAD_PATH/Cross-Platform-Powershell $HOME/.local/bin/
 
 
 #* Temporarily export PATH (add to bashrc to make permanent)
