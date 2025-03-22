@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-# Display the main menu with buttons in the center of the fram
+# Display the main menu with buttons in the center of the frame
 yad --title="" \
   --width=600 --height=600 \
   --form --columns=2 --align=center --no-buttons --dark \
-  --text-align=center --text="<span size='x-large' foreground='grey'>Select Your Spin</span>\n\n\n" \
-  --field="<span foreground='red'>$(printf '\U0001F680')</span>      Rocket/Dev Spin":FBTN "bash -c 'echo test'" \
-  --field="<span foreground='grey'>$(printf '\U0001F4A3')</span>     Doomsday/Prepper Spin":FBTN "bash -c 'echo test'" \
-  --field="<span foreground='green'>$(printf '\U0001F3AE')</span>     Gaming/Pirate Spin":FBTN "bash -c 'echo test'" \
-  --field="<span foreground='pink'>$(printf '\U0001F9E0')</span>     Kids/Student Spin":FBTN "bash -c 'echo test'" \
-  --field="<span foreground='blue'>$(printf '\U0001F4DA')</span>     Parent/Teacher Spin":FBTN "bash -c 'echo test'"
+  --text-align=center --text="<span size='x-large'>Select Your Spin</span>\n\n\n" \
+  --field="🚀      Rocket/Dev Spin":FBTN "bash -c 'echo test'" \
+  --field="💣     Doomsday/Prepper Spin":FBTN "bash -c 'echo test'" \
+  --field="🎮     Gaming/Pirate Spin":FBTN "bash -c 'echo test'" \
+  --field="🧠     Kids/Student Spin":FBTN "bash -c 'echo test'" \
+  --field="📚     Parent/Teacher Spin":FBTN "bash -c 'echo test'"
 
 choice=$?
