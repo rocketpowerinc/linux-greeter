@@ -41,12 +41,12 @@ yad --title="" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF0C7')</span>     Manage Flatpaks":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_flatpak.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF0C7')</span>     Manage Nix pkgs":FBTN "bash -c '$DOWNLOAD_PATH/button_packages_nix.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF1D3')</span>     Titus LinUtil":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
+  --field="<span foreground='gold'>$(printf '\uF023')</span>     Members Only":FBTN "bash -c 'echo PlaceHolder'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF1C5')</span>     View Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_open_dotfiles.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF17C')</span>     Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_specific.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uE70C')</span>     ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF308')</span>     Docker-Compose":FBTN "bash -c 'echo PlaceHolder'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF3A5')</span>     One Truth":FBTN "bash -c 'echo PlaceHolder'" \
-  --field="<span foreground='gold'>$(printf '\uF023')</span>     Members Only":FBTN "bash -c 'echo PlaceHolder'" \
   --field="<span foreground='#FFFFFF'></span> ❌   Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
