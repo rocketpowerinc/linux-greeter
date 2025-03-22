@@ -8,6 +8,6 @@ yad --title="" \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large'>Members Menu</span>\n\n\n" \
   --field="🌪️     MX-Spins":FBTN "bash -c '$DOWNLOAD_PATH/button_members_mxspins.sh'" \
-  --field="🌪️     Place Holder":FBTN "bash -c 'echo test'"
+  --field="🚧     Place Holder":FBTN "bash -c 'echo test'"
 
 choice=$?
