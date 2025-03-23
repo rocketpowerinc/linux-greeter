@@ -24,7 +24,7 @@ yad --title="" \
     New-Item -ItemType File -Path $HOME/.config/powershell/profile.ps1 -Force | Out-Null }; \
     if (-not (Get-Content $HOME/.config/powershell/profile.ps1 | \
     Select-String -Pattern '\\. \\\"$env:HOME/Github/dotfiles/pwsh/profile.ps1\\\"')) { \
-    Add-Content -Path $HOME/.config/powershell/profile.ps1 -Value '. \\\"$env:$HOME/Github/dotfiles/pwsh/profile.ps1\\\"'; \
+    Add-Content -Path $HOME/.config/powershell/profile.ps1 -Value '. \\\"$HOME/Github/dotfiles/pwsh/profile.ps1\\\"'; \
     Write-Host -ForegroundColor Green 'pwsh profile has been copied!' } else { \
     Write-Host -ForegroundColor Yellow 'pwsh profile already sourced!' }\"" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
