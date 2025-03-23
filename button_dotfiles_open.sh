@@ -6,6 +6,7 @@ dotfiles=(
     "$HOME/.bash_profile"
     "$HOME/.zshrc"
     "$HOME/.zprofile"
+    "$HOME/.config/powershell/profile.ps1"
     "$HOME/.vimrc"
     "$HOME/.config/nvim/init.vim"
     "$HOME/.config/nvim/init.lua"
