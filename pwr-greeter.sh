@@ -44,7 +44,7 @@ yad --title="" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF17C')</span>     Distro Specific":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_menu.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uE70C')</span>     ScriptBin":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
   --field="<span foreground='#FFFFFF'>$(printf '\uF308')</span>     Docker":FBTN "bash -c '$DOWNLOAD_PATH/button_docker_menu.sh'" \
-  --field="<span foreground='#FFFFFF'>$(printf '\uF3A5')</span>     Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_dotfiles_menu.sh'" \
+  --field="<span foreground='#FFFFFF'>$(printf '\u25C8')</span>     Dotfiles":FBTN "bash -c '$DOWNLOAD_PATH/button_dotfiles_menu.sh'" \
   --field="<span foreground='gold'>$(printf '\uF023')</span>     Members Only":FBTN "bash -c '$DOWNLOAD_PATH/button_members_menu.sh'"
 
 choice=$?
