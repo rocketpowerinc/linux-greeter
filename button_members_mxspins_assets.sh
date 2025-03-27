@@ -18,36 +18,38 @@ show_progress() {
     # Check if `pv` (Pipe Viewer) is installed
     if command -v pv >/dev/null 2>&1; then
       # Start clone process and pipe through pv
-      git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | pv -L 500k -p -t -r -e -n | while read -r line; do
-        SPEED=$(echo "$line" | grep -oE '[0-9.]+ [KM]B/s')       # Extract speed
+      last_percent=0  # Initialize last_percent
+
+      # Tee the git clone output to stdout (terminal) and to pv
+      git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | tee >(pv -L 500k -p -t -r -e -n | while read -r line; do
+        SPEED=$(echo "$line" | grep -oE '[0-9.]+ [KM]B/s')  # Extract speed
         PERCENT=$(echo "$line" | grep -oE '[0-9]+%' | tr -d '%') # Extract percentage
         [[ -n "$SPEED" ]] && SPEED_TEXT=" (Speed: $SPEED)" || SPEED_TEXT=""
 
-        echo "$line" >&2 # Print to terminal
-
         #Only set percentage if its valid
         if [[ "$PERCENT" =~ ^[0-9]+$ ]]; then
-          echo "$PERCENT"
-          echo "# Cloning repository$SPEED_TEXT" # Show speed in YAD
+          # Update the last_percent if the new percentage is valid and greater
+          if (( $(echo "$PERCENT > $last_percent" | bc -l) )); then
+              last_percent="$PERCENT"
+          fi
+          echo "$last_percent" # Output the last valid percentage.
+          echo "# Cloning repository$SPEED_TEXT"  # Show speed in YAD
         else
+          # If no valid percentage is found, re-output the last valid percentage to keep the progress bar alive
+          echo "$last_percent"
           echo "# Cloning repository$SPEED_TEXT"
         fi
+      done)
 
-      done
       echo "100"
       echo "# Clone complete."
 
     else
       #If pv is not installed.
       echo "pv is not installed. Please install it for speed tracking." >&2
-      #Just print the output of git clone
-      git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
-        echo "$line" >&2 # Print to terminal (git clone output)
-        echo "# Cloning repository"
-      done
+      git clone "$REPO_URL" "$DOWNLOAD_PATH"
       echo "100"
       echo "# Clone complete."
-
     fi
 
   ) | yad --progress \
