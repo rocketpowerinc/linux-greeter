@@ -17,26 +17,38 @@ show_progress() {
 
     # Check if `pv` (Pipe Viewer) is installed
     if command -v pv >/dev/null 2>&1; then
-      SPEED_TRACKING=" | pv -L 500k -p -t -r -e"  # Simulate speed tracking
+      # Start clone process and pipe through pv
+      git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | pv -L 500k -p -t -r -e -n >/dev/null | while read -r line; do
+        SPEED=$(echo "$line" | grep -oE '[0-9.]+ [KM]B/s')       # Extract speed
+        PERCENT=$(echo "$line" | grep -oE '[0-9]+%' | tr -d '%') # Extract percentage
+        [[ -n "$SPEED" ]] && SPEED_TEXT=" (Speed: $SPEED)" || SPEED_TEXT=""
+
+        echo "$line" >&2 # Print to terminal
+
+        #Only set percentage if its valid
+        if [[ "$PERCENT" =~ ^[0-9]+$ ]]; then
+          echo "$PERCENT"
+          echo "# Cloning repository$SPEED_TEXT" # Show speed in YAD
+        else
+          echo "# Cloning repository$SPEED_TEXT"
+        fi
+
+      done
+      echo "100"
+      echo "# Clone complete."
+
     else
-      SPEED_TRACKING=""
+      #If pv is not installed.
+      echo "pv is not installed. Please install it for speed tracking." >&2
+      git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
+        echo "$line" >&2            # Print to terminal
+        echo "# Cloning repository" # Show speed in YAD
+      done
+      echo "100"
+      echo "# Clone complete."
+
     fi
 
-    # Start clone process and capture output
-    { git clone "$REPO_URL" "$DOWNLOAD_PATH" $SPEED_TRACKING; } 2>&1 | while read -r line; do
-      SPEED=$(echo "$line" | grep -oE '[0-9.]+ [KM]B/s')  # Extract speed
-      [[ -n "$SPEED" ]] && SPEED_TEXT=" (Speed: $SPEED)" || SPEED_TEXT=""
-
-      echo "$line" >&2   # Print to terminal
-      echo "# Cloning repository$SPEED_TEXT"  # Show speed in YAD
-      echo "25"           # Gradual progress
-    done
-
-    echo "50"
-    sleep 1  # Small delay for better UI effect
-
-    echo "100"
-    echo "# Clone complete."
   ) | yad --progress \
     --title "Downloading Assets" \
     --text "Cloning repository..." \
