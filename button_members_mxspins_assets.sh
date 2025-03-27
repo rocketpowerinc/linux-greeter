@@ -7,55 +7,27 @@ DOWNLOAD_PATH="$HOME/Downloads/assets"
 # Clean up any previous attempts
 rm -rf "$DOWNLOAD_PATH"
 
-# Function to show progress bar with real-time updates and speed tracking
+# Function to show progress bar with real-time updates
 show_progress() {
   echo "Starting repository clone..."
 
+  # Open a subshell for real-time progress tracking
   (
     echo "5"
     echo "# Initializing clone..."
 
-    # Check if `pv` (Pipe Viewer) is installed
-    if command -v pv >/dev/null 2>&1; then
-      # Use pv to monitor progress in the background
-      PV_PID=0 # Initialize PV_PID
-      last_percent=0
-      (
-        git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | pv -L 500k -p -t -r -e -n >&2 | while read -r pv_line; do
-          SPEED=$(echo "$pv_line" | grep -oE '[0-9.]+ [KM]B/s')
-          PERCENT=$(echo "$pv_line" | grep -oE '[0-9]+%' | tr -d '%')
+    # Clone the repository while printing live output
+    git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
+      echo "$line" >&2 # Print to terminal
+      echo "# $line"   # Show in YAD progress bar
+      echo "25"        # Increment progress
+    done
 
-          if [[ "$PERCENT" =~ ^[0-9]+$ ]]; then
-              if (( $(echo "$PERCENT > $last_percent" | bc -l) )); then
-                  last_percent="$PERCENT"
-              fi
-          fi
-        done
-        echo "PV_DONE" >&2 # Signal that pv is finished.  Crucial for progress bar completion.
-      ) &
-      PV_PID=$!  # Save the process ID of the background pv pipeline
+    echo "50"
+    sleep 1 # Small delay for better UI effect
 
-      # Capture git clone output, process progress bar updates
-      while read -r line; do
-        if [[ "$line" == "PV_DONE" ]]; then
-          break # Exit loop if pv pipeline is finished
-        fi
-
-        echo "$line" # Print git clone output to terminal
-        echo "$last_percent"
-        echo "# Cloning repository"
-      done < <( tail -f -n 0 <&"$2" ) 2>&1 # Capture output
-       wait "$PV_PID" # Wait for pv background process to complete before exiting.
-      echo "100"
-      echo "# Clone complete."
-
-    else
-      #If pv is not installed.
-      echo "pv is not installed. Please install it for speed tracking." >&2
-      git clone "$REPO_URL" "$DOWNLOAD_PATH"
-      echo "100"
-      echo "# Clone complete."
-    fi
+    echo "100"
+    echo "# Clone complete."
   ) | yad --progress \
     --title "Downloading Assets" \
     --text "Cloning repository..." \
@@ -134,6 +106,6 @@ echo "Installing icons..."
 sudo mkdir -p /usr/share/icons
 sudo cp -r "$DOWNLOAD_PATH/icons/"* /usr/share/icons/
 
-# Clean up
-rm -rf "$DOWNLOAD_PATH"
+# Clean up #* if I cleanup here I cannot run it again
+#rm -rf "$DOWNLOAD_PATH"
 echo "All tasks completed successfully!"
