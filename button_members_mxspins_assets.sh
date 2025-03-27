@@ -11,19 +11,37 @@ rm -rf "$DOWNLOAD_PATH"
 show_progress() {
   echo "Starting repository clone..."
 
+  # Start the git clone command in the background and capture its output
+  LOG_FILE="/tmp/git_clone.log"
+  git clone --progress "$REPO_URL" "$DOWNLOAD_PATH" >"$LOG_FILE" 2>&1 &
+  GIT_PID=$!
+
   # Open a subshell for real-time progress tracking
   (
     echo "5"
     echo "# Initializing clone..."
 
-    # Clone the repository with real-time feedback in the terminal
-    git clone --progress "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
-      echo "$line"   # Print to terminal for real-time feedback
-      echo "# $line" # Show in YAD progress bar
+    # Monitor the progress of the git clone command
+    while kill -0 "$GIT_PID" 2>/dev/null; do
+      # Read the last line of the log file for progress updates
+      if tail -n 1 "$LOG_FILE" | grep -q "Receiving objects"; then
+        PROGRESS=$(tail -n 1 "$LOG_FILE" | grep -oP '\d+(?=%)')
+        echo "$PROGRESS"
+        echo "# Cloning in progress: $PROGRESS%"
+      else
+        echo "# Waiting for progress..."
+      fi
+      sleep 1
     done
 
-    echo "100"
-    echo "# Clone complete."
+    # Check if the git clone command succeeded
+    if wait "$GIT_PID"; then
+      echo "100"
+      echo "# Clone complete."
+    else
+      echo "100"
+      echo "# Clone failed. Check the terminal for details."
+    fi
   ) | yad --progress \
     --title "Downloading Assets" \
     --text "Cloning repository..." \
@@ -31,6 +49,10 @@ show_progress() {
     --auto-close \
     --auto-kill \
     --width 400 --height 100
+
+  # Print the git clone output to the terminal
+  cat "$LOG_FILE"
+  rm -f "$LOG_FILE"
 }
 
 # Show progress and clone repository
