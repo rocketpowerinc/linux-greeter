@@ -7,11 +7,35 @@ DOWNLOAD_PATH="$HOME/Downloads/assets"
 # Clean up any previous attempts
 rm -rf "$DOWNLOAD_PATH"
 
+# Function to show progress bar
+show_progress() {
+  yad --progress \
+    --title "Downloading Assets" \
+    --text "Cloning repository..." \
+    --percentage 0 \
+    --pulsate \
+    --auto-close \
+    --width 400 --height 100 # Make progress bar bigger
+}
+
+# Function to close progress bar
+close_progress() {
+  pkill -x "yad --progress"
+}
+
+# Show progress bar
+show_progress &
+PROGRESS_PID=$!
+
 # Clone the repository
 git clone "$REPO_URL" "$DOWNLOAD_PATH" || {
   echo "Failed to clone the repository."
+  close_progress
   exit 1
 }
+
+# Close progress bar
+close_progress
 
 # Wallpaper directory selection
 WALLPAPER_CHOICES=(
@@ -39,7 +63,8 @@ SELECTED_WALLPAPER=$(
     --title "Select Wallpaper Category" \
     --text "Choose which wallpaper category to install:" \
     --column "Select" --column "Category" \
-    "FALSE" "${WALLPAPER_CHOICES[0]}" \
+    --width 600 --height 400 # Make the list wider and taller
+  "FALSE" "${WALLPAPER_CHOICES[0]}" \
     "FALSE" "${WALLPAPER_CHOICES[1]}" \
     "FALSE" "${WALLPAPER_CHOICES[2]}" \
     "FALSE" "${WALLPAPER_CHOICES[3]}" \
@@ -58,6 +83,10 @@ if [[ -n "$SELECTED_WALLPAPER" ]]; then
   SELECTED_WALLPAPER_PATH="${WALLPAPER_PATHS[$SELECTED_INDEX]}"
 
   # Install Wallpapers
+
+  # First, delete all files and folders inside /usr/share/backgrounds/
+  sudo rm -rf /usr/share/backgrounds/*
+
   sudo mkdir -p /usr/share/backgrounds
   sudo find "$SELECTED_WALLPAPER_PATH" -type f -exec mv {} /usr/share/backgrounds/ \;
 else
