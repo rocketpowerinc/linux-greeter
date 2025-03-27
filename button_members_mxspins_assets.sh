@@ -18,9 +18,9 @@ show_progress() {
 
     # Clone the repository while printing live output
     git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
-      echo "$line" >&2 # Print to terminal
-      echo "# $line"   # Show in YAD progress bar
-      echo "25"        # Increment progress
+      echo "$line"   # Print to terminal for feedback
+      echo "# $line" # Show in YAD progress bar
+      echo "25"      # Increment progress
     done
 
     echo "50"
