@@ -23,7 +23,8 @@ clone_repo() {
     PERCENTAGE=$(((FILES_DOWNLOADED * 100) / TOTAL_FILES))
 
     # Update yad's text
-    echo "$line" | yad --title "Downloading Assets" --text-info --width 400 --height 100 --no-buttons --replace --pid "$YAD_PID" --text
+    TEXT_TO_SHOW="Downloading.... $PERCENTAGE%"
+    echo "$TEXT_TO_SHOW" | yad --title "Downloading Assets" --text-info --width 400 --height 100 --no-buttons --replace --pid "$YAD_PID" --text
 
   done || {
     echo "Failed to clone the repository."
