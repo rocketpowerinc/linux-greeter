@@ -27,7 +27,7 @@ show_progress() {
       if tail -n 1 "$LOG_FILE" | grep -q "Receiving objects"; then
         PROGRESS=$(tail -n 1 "$LOG_FILE" | grep -oP '\d+(?=%)')
         echo "$PROGRESS"
-        echo "# Cloning in progress: $PROGRESS%"
+        #echo "# Cloning in progress: $PROGRESS%"
       else
         echo "# Waiting for progress..."
       fi
@@ -124,6 +124,5 @@ echo "Installing icons..."
 sudo mkdir -p /usr/share/icons
 sudo cp -r "$DOWNLOAD_PATH/icons/"* /usr/share/icons/
 
-# Clean up #* if I cleanup here I cannot run it again
-#rm -rf "$DOWNLOAD_PATH"
+
 echo "All tasks completed successfully!"
