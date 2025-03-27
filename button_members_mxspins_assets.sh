@@ -106,6 +106,6 @@ echo "Installing icons..."
 sudo mkdir -p /usr/share/icons
 sudo cp -r "$DOWNLOAD_PATH/icons/"* /usr/share/icons/
 
-# Clean up
+# Clean up #* if I cleanup here I cannot run it again
 #rm -rf "$DOWNLOAD_PATH"
 echo "All tasks completed successfully!"
