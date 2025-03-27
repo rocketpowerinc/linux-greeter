@@ -18,7 +18,7 @@ show_progress() {
     # Check if `pv` (Pipe Viewer) is installed
     if command -v pv >/dev/null 2>&1; then
       # Start clone process and pipe through pv
-      git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | pv -L 500k -p -t -r -e -n >/dev/null | while read -r line; do
+      git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | pv -L 500k -p -t -r -e -n | while read -r line; do
         SPEED=$(echo "$line" | grep -oE '[0-9.]+ [KM]B/s')       # Extract speed
         PERCENT=$(echo "$line" | grep -oE '[0-9]+%' | tr -d '%') # Extract percentage
         [[ -n "$SPEED" ]] && SPEED_TEXT=" (Speed: $SPEED)" || SPEED_TEXT=""
@@ -40,9 +40,10 @@ show_progress() {
     else
       #If pv is not installed.
       echo "pv is not installed. Please install it for speed tracking." >&2
+      #Just print the output of git clone
       git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
-        echo "$line" >&2            # Print to terminal
-        echo "# Cloning repository" # Show speed in YAD
+        echo "$line" >&2 # Print to terminal (git clone output)
+        echo "# Cloning repository"
       done
       echo "100"
       echo "# Clone complete."
