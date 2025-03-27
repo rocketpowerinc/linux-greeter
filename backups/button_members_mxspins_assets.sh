@@ -7,16 +7,8 @@ DOWNLOAD_PATH="$HOME/Downloads/assets"
 # Clean up any previous attempts
 rm -rf "$DOWNLOAD_PATH"
 
-# Clone the repository with a simpler progress indicator
-(
-  git clone "$REPO_URL" "$DOWNLOAD_PATH" &
-  PID=$!
-  while kill -0 "$PID" 2>/dev/null; do
-    echo -n "." # Simple progress indicator
-    sleep 1
-  done
-  echo # Newline after cloning is complete
-) || {
+# Clone the repository
+git clone "$REPO_URL" "$DOWNLOAD_PATH" || {
   echo "Failed to clone the repository."
   exit 1
 }
@@ -39,13 +31,14 @@ WALLPAPER_PATHS=(
 )
 
 # Create yad options
+YAD_OPTIONS=$(printf "%s\n" "${WALLPAPER_CHOICES[@]}")
+
 SELECTED_WALLPAPER=$(
   yad --list \
     --radiolist \
     --title "Select Wallpaper Category" \
     --text "Choose which wallpaper category to install:" \
     --column "Select" --column "Category" \
-    --width 600 --height 400 \
     "FALSE" "${WALLPAPER_CHOICES[0]}" \
     "FALSE" "${WALLPAPER_CHOICES[1]}" \
     "FALSE" "${WALLPAPER_CHOICES[2]}" \
@@ -63,9 +56,6 @@ if [[ -n "$SELECTED_WALLPAPER" ]]; then
 
   # Get the wallpaper path.
   SELECTED_WALLPAPER_PATH="${WALLPAPER_PATHS[$SELECTED_INDEX]}"
-
-  # First, delete all files and folders inside /usr/share/backgrounds/
-  sudo rm -rf /usr/share/backgrounds/*
 
   # Install Wallpapers
   sudo mkdir -p /usr/share/backgrounds
