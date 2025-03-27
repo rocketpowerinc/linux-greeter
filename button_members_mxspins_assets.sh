@@ -13,14 +13,26 @@ show_progress() {
     --title "Downloading Assets" \
     --text "Cloning repository..." \
     --percentage 0 \
-    --pulsate \
     --auto-close \
     --width 400 --height 100 # Make progress bar bigger
 }
 
-# Function to close progress bar
-close_progress() {
-  pkill -x "yad --progress"
+# Function to clone and update progress bar
+clone_repo() {
+  # Use pv to show progress and update yad
+  git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | pv -l -s $(wc -l < <(git ls-remote "$REPO_URL")) |
+    while IFS= read -r line; do
+      percentage=$(echo "$line" | awk -F '[:%]' '{print $2}' | sed 's/ //g')
+
+      if [[ -n "$percentage" ]]; then
+        yad --progress --title "Downloading Assets" --text "Cloning repository..." --percentage "$percentage" --auto-close --width 400 --height 100
+      fi
+
+      echo "$line" >&2 # Output Git's messages to stderr
+    done || {
+    echo "Failed to clone the repository."
+    exit 1
+  }
 }
 
 # Show progress bar
@@ -28,14 +40,10 @@ show_progress &
 PROGRESS_PID=$!
 
 # Clone the repository
-git clone "$REPO_URL" "$DOWNLOAD_PATH" || {
-  echo "Failed to clone the repository."
-  close_progress
-  exit 1
-}
+clone_repo
 
-# Close progress bar
-close_progress
+# Kill the progress bar
+kill "$PROGRESS_PID" 2>/dev/null
 
 # Wallpaper directory selection
 WALLPAPER_CHOICES=(
