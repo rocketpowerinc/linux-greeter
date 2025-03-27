@@ -64,7 +64,7 @@ echo "Repository clone completed successfully!"
 
 # Wallpaper directory selection
 WALLPAPER_CHOICES=(
-  "Spin-DoomsdayPrepper"
+  "Spin-DoomsdayHealth"
   "Spin-GamingPirate"
   "Spin-KidsStudent"
   "Spin-ParentTeacher"
@@ -72,7 +72,7 @@ WALLPAPER_CHOICES=(
 )
 
 WALLPAPER_PATHS=(
-  "$DOWNLOAD_PATH/wallpapers/Spin-DoomsdayPrepper"
+  "$DOWNLOAD_PATH/wallpapers/Spin-DoomsdayHealth"
   "$DOWNLOAD_PATH/wallpapers/Spin-GamingPirate"
   "$DOWNLOAD_PATH/wallpapers/Spin-KidsStudent"
   "$DOWNLOAD_PATH/wallpapers/Spin-ParentTeacher"
