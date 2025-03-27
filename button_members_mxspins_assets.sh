@@ -107,5 +107,5 @@ sudo mkdir -p /usr/share/icons
 sudo cp -r "$DOWNLOAD_PATH/icons/"* /usr/share/icons/
 
 # Clean up
-rm -rf "$DOWNLOAD_PATH"
+#rm -rf "$DOWNLOAD_PATH"
 echo "All tasks completed successfully!"
