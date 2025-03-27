@@ -17,30 +17,35 @@ show_progress() {
 
     # Check if `pv` (Pipe Viewer) is installed
     if command -v pv >/dev/null 2>&1; then
-      # Start clone process and pipe through pv
-      last_percent=0  # Initialize last_percent
+      # Use pv to monitor progress in the background
+      PV_PID=0 # Initialize PV_PID
+      last_percent=0
+      (
+        git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | pv -L 500k -p -t -r -e -n >&2 | while read -r pv_line; do
+          SPEED=$(echo "$pv_line" | grep -oE '[0-9.]+ [KM]B/s')
+          PERCENT=$(echo "$pv_line" | grep -oE '[0-9]+%' | tr -d '%')
 
-      # Tee the git clone output to stdout (terminal) and to pv
-      git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | tee >(pv -L 500k -p -t -r -e -n | while read -r line; do
-        SPEED=$(echo "$line" | grep -oE '[0-9.]+ [KM]B/s')  # Extract speed
-        PERCENT=$(echo "$line" | grep -oE '[0-9]+%' | tr -d '%') # Extract percentage
-        [[ -n "$SPEED" ]] && SPEED_TEXT=" (Speed: $SPEED)" || SPEED_TEXT=""
-
-        #Only set percentage if its valid
-        if [[ "$PERCENT" =~ ^[0-9]+$ ]]; then
-          # Update the last_percent if the new percentage is valid and greater
-          if (( $(echo "$PERCENT > $last_percent" | bc -l) )); then
-              last_percent="$PERCENT"
+          if [[ "$PERCENT" =~ ^[0-9]+$ ]]; then
+              if (( $(echo "$PERCENT > $last_percent" | bc -l) )); then
+                  last_percent="$PERCENT"
+              fi
           fi
-          echo "$last_percent" # Output the last valid percentage.
-          echo "# Cloning repository$SPEED_TEXT"  # Show speed in YAD
-        else
-          # If no valid percentage is found, re-output the last valid percentage to keep the progress bar alive
-          echo "$last_percent"
-          echo "# Cloning repository$SPEED_TEXT"
-        fi
-      done)
+        done
+        echo "PV_DONE" >&2 # Signal that pv is finished.  Crucial for progress bar completion.
+      ) &
+      PV_PID=$!  # Save the process ID of the background pv pipeline
 
+      # Capture git clone output, process progress bar updates
+      while read -r line; do
+        if [[ "$line" == "PV_DONE" ]]; then
+          break # Exit loop if pv pipeline is finished
+        fi
+
+        echo "$line" # Print git clone output to terminal
+        echo "$last_percent"
+        echo "# Cloning repository"
+      done < <( tail -f -n 0 <&"$2" ) 2>&1 # Capture output
+       wait "$PV_PID" # Wait for pv background process to complete before exiting.
       echo "100"
       echo "# Clone complete."
 
@@ -51,7 +56,6 @@ show_progress() {
       echo "100"
       echo "# Clone complete."
     fi
-
   ) | yad --progress \
     --title "Downloading Assets" \
     --text "Cloning repository..." \
