@@ -1,40 +1,36 @@
 #!/usr/bin/env bash
 
-# Define the repository URL and the download path
+# Define repository and download path
 REPO_URL="https://github.com/rocketpowerinc/assets.git"
 DOWNLOAD_PATH="$HOME/Downloads/assets"
 
 # Clean up any previous attempts
 rm -rf "$DOWNLOAD_PATH"
 
-# Function to show progress bar
+# Function to show progress bar with actual updates
 show_progress() {
-  yad --progress \
+  (
+    echo "5" # Small delay before start
+    echo "# Initializing clone..."
+    git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
+      echo "# $line" # Show git output as message
+      echo "50"      # Approximate midway point (git doesn't report exact %)
+    done
+    echo "100" # Completion
+  ) | yad --progress \
     --title "Downloading Assets" \
     --text "Cloning repository..." \
     --percentage 0 \
-    --pulsate \
     --auto-close \
-    --width 400 --height 100 # Make progress bar bigger
+    --auto-kill \
+    --width 400 --height 100
 }
 
-# Function to clone the repository
-clone_repo() {
-  git clone "$REPO_URL" "$DOWNLOAD_PATH" || {
-    echo "Failed to clone the repository."
-    exit 1
-  }
+# Show progress and clone repository
+show_progress || {
+  echo "Failed to clone the repository."
+  exit 1
 }
-
-# Show progress bar
-show_progress &
-PROGRESS_PID=$!
-
-# Clone the repository
-clone_repo
-
-# Kill the progress bar
-kill "$PROGRESS_PID" 2>/dev/null
 
 # Wallpaper directory selection
 WALLPAPER_CHOICES=(
@@ -68,15 +64,13 @@ SELECTED_WALLPAPER=$(
     "FALSE" "${WALLPAPER_CHOICES[4]}"
 )
 
-# Validate selection and extract index.  If the user cancels, $SELECTED_WALLPAPER will be empty
+# Validate selection and extract index. If the user cancels, $SELECTED_WALLPAPER will be empty
 if [[ -n "$SELECTED_WALLPAPER" ]]; then
   # Determine the index of the selected wallpaper
   SELECTED_INDEX=$(printf '%s\n' "${WALLPAPER_CHOICES[@]}" | grep -n -m 1 -w "$SELECTED_WALLPAPER" | cut -d ':' -f 1)
+  SELECTED_INDEX=$((SELECTED_INDEX - 1)) # Convert grep's 1-based index to bash 0-based
 
-  # Subtract 1 to convert from grep's 1-based indexing to bash's 0-based indexing
-  SELECTED_INDEX=$((SELECTED_INDEX - 1))
-
-  # Get the wallpaper path.
+  # Get the wallpaper path
   SELECTED_WALLPAPER_PATH="${WALLPAPER_PATHS[$SELECTED_INDEX]}"
 
   # First, delete all files and folders inside /usr/share/backgrounds/
