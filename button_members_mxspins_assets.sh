@@ -7,19 +7,34 @@ DOWNLOAD_PATH="$HOME/Downloads/assets"
 # Clean up any previous attempts
 rm -rf "$DOWNLOAD_PATH"
 
-# Clone the repository with a simpler progress indicator
-(
-  git clone "$REPO_URL" "$DOWNLOAD_PATH" &
-  PID=$!
-  while kill -0 "$PID" 2>/dev/null; do
-    echo -n "." # Simple progress indicator
-    sleep 1
-  done
-  echo # Newline after cloning is complete
-) || {
-  echo "Failed to clone the repository."
-  exit 1
+# Function to show progress bar
+show_progress() {
+  yad --progress \
+    --title "Downloading Assets" \
+    --text "Cloning repository..." \
+    --percentage 0 \
+    --pulsate \
+    --auto-close \
+    --width 400 --height 100 # Make progress bar bigger
 }
+
+# Function to clone the repository
+clone_repo() {
+  git clone "$REPO_URL" "$DOWNLOAD_PATH" || {
+    echo "Failed to clone the repository."
+    exit 1
+  }
+}
+
+# Show progress bar
+show_progress &
+PROGRESS_PID=$!
+
+# Clone the repository
+clone_repo
+
+# Kill the progress bar
+kill "$PROGRESS_PID" 2>/dev/null
 
 # Wallpaper directory selection
 WALLPAPER_CHOICES=(
