@@ -7,16 +7,19 @@ DOWNLOAD_PATH="$HOME/Downloads/assets"
 # Clean up any previous attempts
 rm -rf "$DOWNLOAD_PATH"
 
-# Function to show progress bar with actual updates
+# Function to show progress bar with real-time updates
 show_progress() {
+  echo "Starting repository clone..."
   (
     echo "5" # Small delay before start
     echo "# Initializing clone..."
     git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
-      echo "# $line" # Show git output as message
-      echo "50"      # Approximate midway point (git doesn't report exact %)
+      echo "$line"   # Print to terminal
+      echo "# $line" # Show in YAD progress bar
+      echo "50"      # Approximate midway point
     done
     echo "100" # Completion
+    echo "# Clone complete."
   ) | yad --progress \
     --title "Downloading Assets" \
     --text "Cloning repository..." \
@@ -31,6 +34,7 @@ show_progress || {
   echo "Failed to clone the repository."
   exit 1
 }
+echo "Repository clone completed successfully!"
 
 # Wallpaper directory selection
 WALLPAPER_CHOICES=(
@@ -64,14 +68,20 @@ SELECTED_WALLPAPER=$(
     "FALSE" "${WALLPAPER_CHOICES[4]}"
 )
 
-# Validate selection and extract index. If the user cancels, $SELECTED_WALLPAPER will be empty
+# Validate selection and extract index
 if [[ -n "$SELECTED_WALLPAPER" ]]; then
-  # Determine the index of the selected wallpaper
-  SELECTED_INDEX=$(printf '%s\n' "${WALLPAPER_CHOICES[@]}" | grep -n -m 1 -w "$SELECTED_WALLPAPER" | cut -d ':' -f 1)
-  SELECTED_INDEX=$((SELECTED_INDEX - 1)) # Convert grep's 1-based index to bash 0-based
+  # Get the correct index from the selection
+  for i in "${!WALLPAPER_CHOICES[@]}"; do
+    if [[ "${WALLPAPER_CHOICES[$i]}" == "$SELECTED_WALLPAPER" ]]; then
+      SELECTED_INDEX=$i
+      break
+    fi
+  done
 
-  # Get the wallpaper path
+  # Get the correct wallpaper path
   SELECTED_WALLPAPER_PATH="${WALLPAPER_PATHS[$SELECTED_INDEX]}"
+  echo "Selected wallpaper category: ${WALLPAPER_CHOICES[$SELECTED_INDEX]}"
+  echo "Installing wallpapers from: $SELECTED_WALLPAPER_PATH"
 
   # First, delete all files and folders inside /usr/share/backgrounds/
   sudo rm -rf /usr/share/backgrounds/*
@@ -84,10 +94,10 @@ else
 fi
 
 # Icons
+echo "Installing icons..."
 sudo mkdir -p /usr/share/icons
 sudo find "$DOWNLOAD_PATH/icons/" -type f -exec mv {} /usr/share/icons/ \;
 
 # Clean up
 rm -rf "$DOWNLOAD_PATH"
-
-echo "Done."
+echo "All tasks completed successfully!"
