@@ -7,24 +7,33 @@ DOWNLOAD_PATH="$HOME/Downloads/assets"
 # Clean up any previous attempts
 rm -rf "$DOWNLOAD_PATH"
 
-# Function to show progress bar with real-time updates
+# Function to show progress bar with real-time updates and speed tracking
 show_progress() {
   echo "Starting repository clone..."
 
-  # Open a subshell for real-time progress tracking
   (
     echo "5"
     echo "# Initializing clone..."
 
-    # Clone the repository while printing live output
-    git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
-      echo "$line" >&2 # Print to terminal
-      echo "# $line"   # Show in YAD progress bar
-      echo "25"        # Increment progress
+    # Check if `pv` (Pipe Viewer) is installed
+    if command -v pv >/dev/null 2>&1; then
+      SPEED_TRACKING=" | pv -L 500k -p -t -r -e"  # Simulate speed tracking
+    else
+      SPEED_TRACKING=""
+    fi
+
+    # Start clone process and capture output
+    { git clone "$REPO_URL" "$DOWNLOAD_PATH" $SPEED_TRACKING; } 2>&1 | while read -r line; do
+      SPEED=$(echo "$line" | grep -oE '[0-9.]+ [KM]B/s')  # Extract speed
+      [[ -n "$SPEED" ]] && SPEED_TEXT=" (Speed: $SPEED)" || SPEED_TEXT=""
+
+      echo "$line" >&2   # Print to terminal
+      echo "# Cloning repository$SPEED_TEXT"  # Show speed in YAD
+      echo "25"           # Gradual progress
     done
 
     echo "50"
-    sleep 1 # Small delay for better UI effect
+    sleep 1  # Small delay for better UI effect
 
     echo "100"
     echo "# Clone complete."
@@ -106,6 +115,6 @@ echo "Installing icons..."
 sudo mkdir -p /usr/share/icons
 sudo cp -r "$DOWNLOAD_PATH/icons/"* /usr/share/icons/
 
-# Clean up #* if I cleanup here I cannot run it again
-#rm -rf "$DOWNLOAD_PATH"
+# Clean up
+rm -rf "$DOWNLOAD_PATH"
 echo "All tasks completed successfully!"

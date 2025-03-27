@@ -1,17 +1,48 @@
 #!/usr/bin/env bash
 
-# Define the repository URL and the download path
+# Define repository and download path
 REPO_URL="https://github.com/rocketpowerinc/assets.git"
 DOWNLOAD_PATH="$HOME/Downloads/assets"
 
 # Clean up any previous attempts
 rm -rf "$DOWNLOAD_PATH"
 
-# Clone the repository
-git clone "$REPO_URL" "$DOWNLOAD_PATH" || {
+# Function to show progress bar with real-time updates
+show_progress() {
+  echo "Starting repository clone..."
+
+  # Open a subshell for real-time progress tracking
+  (
+    echo "5"
+    echo "# Initializing clone..."
+
+    # Clone the repository while printing live output
+    git clone "$REPO_URL" "$DOWNLOAD_PATH" 2>&1 | while read -r line; do
+      echo "$line" >&2 # Print to terminal
+      echo "# $line"   # Show in YAD progress bar
+      echo "25"        # Increment progress
+    done
+
+    echo "50"
+    sleep 1 # Small delay for better UI effect
+
+    echo "100"
+    echo "# Clone complete."
+  ) | yad --progress \
+    --title "Downloading Assets" \
+    --text "Cloning repository..." \
+    --percentage 0 \
+    --auto-close \
+    --auto-kill \
+    --width 400 --height 100
+}
+
+# Show progress and clone repository
+show_progress || {
   echo "Failed to clone the repository."
   exit 1
 }
+echo "Repository clone completed successfully!"
 
 # Wallpaper directory selection
 WALLPAPER_CHOICES=(
@@ -31,44 +62,50 @@ WALLPAPER_PATHS=(
 )
 
 # Create yad options
-YAD_OPTIONS=$(printf "%s\n" "${WALLPAPER_CHOICES[@]}")
-
 SELECTED_WALLPAPER=$(
   yad --list \
     --radiolist \
     --title "Select Wallpaper Category" \
     --text "Choose which wallpaper category to install:" \
     --column "Select" --column "Category" \
-    "FALSE" "${WALLPAPER_CHOICES[0]}" \
-    "FALSE" "${WALLPAPER_CHOICES[1]}" \
-    "FALSE" "${WALLPAPER_CHOICES[2]}" \
-    "FALSE" "${WALLPAPER_CHOICES[3]}" \
-    "FALSE" "${WALLPAPER_CHOICES[4]}"
+    --width 600 --height 400 \
+    TRUE "${WALLPAPER_CHOICES[0]}" \
+    FALSE "${WALLPAPER_CHOICES[1]}" \
+    FALSE "${WALLPAPER_CHOICES[2]}" \
+    FALSE "${WALLPAPER_CHOICES[3]}" \
+    FALSE "${WALLPAPER_CHOICES[4]}" | awk -F '|' '{print $2}'
 )
 
-# Validate selection and extract index.  If the user cancels, $SELECTED_WALLPAPER will be empty
+# Validate selection and extract index
 if [[ -n "$SELECTED_WALLPAPER" ]]; then
-  # Determine the index of the selected wallpaper
-  SELECTED_INDEX=$(printf '%s\n' "${WALLPAPER_CHOICES[@]}" | grep -n -m 1 -w "$SELECTED_WALLPAPER" | cut -d ':' -f 1)
+  # Extract the index correctly
+  for i in "${!WALLPAPER_CHOICES[@]}"; do
+    if [[ "${WALLPAPER_CHOICES[$i]}" == "$SELECTED_WALLPAPER" ]]; then
+      SELECTED_INDEX=$i
+      break
+    fi
+  done
 
-  # Subtract 1 to convert from grep's 1-based indexing to bash's 0-based indexing
-  SELECTED_INDEX=$((SELECTED_INDEX - 1))
-
-  # Get the wallpaper path.
+  # Get the correct wallpaper path
   SELECTED_WALLPAPER_PATH="${WALLPAPER_PATHS[$SELECTED_INDEX]}"
+  echo "Selected wallpaper category: ${WALLPAPER_CHOICES[$SELECTED_INDEX]}"
+  echo "Installing wallpapers from: $SELECTED_WALLPAPER_PATH"
+
+  # First, delete all files and folders inside /usr/share/backgrounds/
+  sudo rm -rf /usr/share/backgrounds/*
 
   # Install Wallpapers
   sudo mkdir -p /usr/share/backgrounds
-  sudo find "$SELECTED_WALLPAPER_PATH" -type f -exec mv {} /usr/share/backgrounds/ \;
+  sudo cp -r "$SELECTED_WALLPAPER_PATH/"* /usr/share/backgrounds/
 else
   echo "Wallpaper installation cancelled."
 fi
 
 # Icons
+echo "Installing icons..."
 sudo mkdir -p /usr/share/icons
-sudo find "$DOWNLOAD_PATH/icons/" -type f -exec mv {} /usr/share/icons/ \;
+sudo cp -r "$DOWNLOAD_PATH/icons/"* /usr/share/icons/
 
-# Clean up
-rm -rf "$DOWNLOAD_PATH"
-
-echo "Done."
+# Clean up #* if I cleanup here I cannot run it again
+#rm -rf "$DOWNLOAD_PATH"
+echo "All tasks completed successfully!"
