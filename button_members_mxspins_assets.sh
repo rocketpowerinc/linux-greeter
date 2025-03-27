@@ -29,7 +29,7 @@ show_progress() {
         echo "$PROGRESS"
         #echo "# Cloning in progress: $PROGRESS%"
       else
-        echo "# Cloning Repo..."
+        echo "# Cloning repository..."
       fi
       sleep 1
     done
@@ -44,7 +44,7 @@ show_progress() {
     fi
   ) | yad --progress \
     --title "Downloading Assets" \
-    --text "Cloning repository..." \
+    --text "" \
     --percentage 0 \
     --auto-close \
     --auto-kill \
