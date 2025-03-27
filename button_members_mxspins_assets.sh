@@ -29,7 +29,7 @@ show_progress() {
         echo "$PROGRESS"
         #echo "# Cloning in progress: $PROGRESS%"
       else
-        echo "# Waiting for progress..."
+        echo "# Cloning Repo..."
       fi
       sleep 1
     done
