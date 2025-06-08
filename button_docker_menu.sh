@@ -34,7 +34,7 @@ EOF
 
   # Navigate to the directory and start the container
   cd "$BASE_DIR" || return
-  docker compose up -d
+  sudo docker compose up -d
 
   # Notify the user
   echo "FileBrowser is now running at http://localhost:3000"
