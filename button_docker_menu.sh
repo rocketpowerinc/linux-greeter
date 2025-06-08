@@ -40,6 +40,7 @@ EOF
   echo "FileBrowser is now running at http://localhost:3000"
 }
 
+export -f selfhost_filebrowser
 
 ##############################################
 # Display the main menu with buttons in the center of the frame
