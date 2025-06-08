@@ -86,8 +86,8 @@ yad --title="" \
   --width=600 --height=600 \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large'>Docker Menu</span>\n\n\n" \
-  --field="🌪️     Selfhost Filebrowser":FBTN "bash -c 'selfhost_filebrowser'" \
-  --field="🚧     Selfhost Lazydocker":FBTN "bash -c 'selfhost_lazydocker'" \
+  --field="🔑     Selfhost Filebrowser":FBTN "bash -c 'selfhost_filebrowser'" \
+  --field="🔑     Selfhost Lazydocker":FBTN "bash -c 'selfhost_lazydocker'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
