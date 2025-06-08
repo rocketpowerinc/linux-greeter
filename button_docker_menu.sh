@@ -3,16 +3,7 @@
 # Variables
 DOWNLOAD_PATH="$HOME/Downloads/linux-greeter"
 
-# Display the main menu with buttons in the center of the fram
-yad --title="" \
-  --width=600 --height=600 \
-  --form --columns=2 --align=center --no-buttons --dark \
-  --text-align=center --text="<span size='x-large'>Docker Menu</span>\n\n\n" \
-  --field="🌪️     Selfhost Filebrowser":FBTN "bash -c 'selfhost_filebrowser'" \
-  --field="🚧     Place Holder":FBTN "bash -c 'echo test'" \
-  --field="❌ Exit":FBTN "bash -c 'pkill yad'"
-
-choice=$?
+#################################################
 
 selfhost_filebrowser() {
   BASE_DIR="$HOME/Docker/filebrowser"
@@ -48,3 +39,16 @@ EOF
   # Notify the user
   echo "FileBrowser is now running at http://localhost:3000"
 }
+
+
+##############################################
+# Display the main menu with buttons in the center of the frame
+yad --title="" \
+  --width=600 --height=600 \
+  --form --columns=2 --align=center --no-buttons --dark \
+  --text-align=center --text="<span size='x-large'>Docker Menu</span>\n\n\n" \
+  --field="🌪️     Selfhost Filebrowser":FBTN "bash -c 'selfhost_filebrowser'" \
+  --field="🚧     Place Holder":FBTN "bash -c 'echo test'" \
+  --field="❌ Exit":FBTN "bash -c 'pkill yad'"
+
+choice=$?
