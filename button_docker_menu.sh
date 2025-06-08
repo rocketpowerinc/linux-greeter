@@ -8,7 +8,7 @@ yad --title="" \
   --width=600 --height=600 \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large'>Docker Menu</span>\n\n\n" \
-  --field="🌪️     Selfhost Filebrowser":FBTN "bash -c 'echo test'" \
+  --field="🌪️     Selfhost Filebrowser":FBTN "bash -c 'selfhost_filebrowser'" \
   --field="🚧     Place Holder":FBTN "bash -c 'echo test'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
