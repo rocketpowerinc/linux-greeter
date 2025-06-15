@@ -198,7 +198,7 @@ EOF
 
 }
 
-export -f selfhost_portainer
+export -f selfhost_jdownloader
 
 #!######################      MENU         #######################
 # Display the main menu with buttons in the center of the frame
@@ -211,6 +211,7 @@ yad --title="" \
   --field="🔑     Selfhost Filebrowser":FBTN "bash -c 'selfhost_filebrowser'" \
   --field="🔑     Selfhost Lazydocker":FBTN "bash -c 'selfhost_lazydocker'" \
   --field="🔑     Selfhost Portainer":FBTN "bash -c 'selfhost_portainer'" \
+  --field="🔑     Selfhost Portainer":FBTN "bash -c 'selfhost_jdownloader'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
