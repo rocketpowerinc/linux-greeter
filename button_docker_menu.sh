@@ -200,6 +200,50 @@ EOF
 
 export -f selfhost_jdownloader
 
+#*########################################################
+
+selfhost_wud() {
+  BASE_DIR="$HOME/Docker/wud"
+  COMPOSE_FILE="$BASE_DIR/docker-compose.yml"
+
+  # Ensure the base directory exists
+  mkdir -p "$BASE_DIR"
+
+  # Write the docker-compose.yml file
+  cat >"$COMPOSE_FILE" <<EOF
+services:
+  whatsupdocker:
+    image: getwud/wud:latest
+    container_name: wud
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 3001:3000
+    restart: unless-stopped
+
+
+EOF
+
+  # Navigate to the directory and build + run the container
+  cd "$BASE_DIR" || return
+  sudo docker compose up -d --build
+
+  # Notify the user
+  echo "http://localhost:3001" | yad --text-info \
+    --title="WUD Started" \
+    --width=500 \
+    --height=200 \
+    --center \
+    --window-icon=dialog-information \
+    --no-buttons \
+    --fontname="monospace 12" \
+    --wrap \
+    --text="<span foreground='cyan' weight='bold' size='20000'>WUD now running at:</span>"
+
+}
+
+export -f selfhost_wud
+
 #!######################      MENU         #######################
 # Display the main menu with buttons in the center of the frame
 yad --title="" \
@@ -212,6 +256,7 @@ yad --title="" \
   --field="🔑     Selfhost Lazydocker":FBTN "bash -c 'selfhost_lazydocker'" \
   --field="🔑     Selfhost Portainer":FBTN "bash -c 'selfhost_portainer'" \
   --field="🔑     Selfhost Jdownloader2":FBTN "bash -c 'selfhost_jdownloader'" \
+  --field="🔑     Selfhost WUD":FBTN "bash -c 'selfhost_wud'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
