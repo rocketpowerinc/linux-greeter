@@ -211,7 +211,7 @@ yad --title="" \
   --field="🔑     Selfhost Filebrowser":FBTN "bash -c 'selfhost_filebrowser'" \
   --field="🔑     Selfhost Lazydocker":FBTN "bash -c 'selfhost_lazydocker'" \
   --field="🔑     Selfhost Portainer":FBTN "bash -c 'selfhost_portainer'" \
-  --field="🔑     Selfhost Portainer":FBTN "bash -c 'selfhost_jdownloader'" \
+  --field="🔑     Selfhost Jdownloader2":FBTN "bash -c 'selfhost_jdownloader'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
