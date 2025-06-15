@@ -183,7 +183,7 @@ EOF
   # Navigate to the directory and build + run the container
   cd "$BASE_DIR" || return
   sudo docker compose up -d --build
-
+  xdg-open http://localhost:5800
   # Notify the user
   echo "http://localhost:5800" | yad --text-info \
     --title="Jdownloader Started" \
