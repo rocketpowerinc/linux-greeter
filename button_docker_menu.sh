@@ -68,6 +68,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./config:/.config/jesseduffield/lazydocker
+    restart: unless-stopped
 EOF
 
   # Navigate to the directory and build + run the container
@@ -80,15 +81,52 @@ EOF
 
 export -f selfhost_lazydocker
 
+#########################################################
+
+selfhost_portainer() {
+  BASE_DIR="$HOME/Docker/portainer"
+  COMPOSE_FILE="$BASE_DIR/docker-compose.yml"
+
+  # Ensure the base directory exists
+  mkdir -p "$BASE_DIR"
+
+  # Write the docker-compose.yml file
+  cat >"$COMPOSE_FILE" <<EOF
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - 9443:9443
+    volumes:
+      - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+volumes:
+  data:
+
+EOF
+
+  # Navigate to the directory and build + run the container
+  cd "$BASE_DIR" || return
+  sudo docker compose up -d --build
+
+  # Notify the user
+  yad --info --text="Portainer is now running. Attach with:\n\n<b>sudo docker exec -it lazydocker lazydocker</b>"
+}
+
+export -f selfhost_portainer
+
 #!######################      MENU         #######################
 # Display the main menu with buttons in the center of the frame
 yad --title="" \
   --width=600 --height=600 \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large'>Docker Menu</span>\n\n\n" \
-  --field="🐳     Install Docker":FBTN "bash -c 'yad --info --title=\"Install Docker\" --width=800 --height=120 --center --window-icon=dialog-warning --markup --text=\"<span foreground=\\\"yellow\\\" size=\\\"large\\\">⚠️ Please install Docker using CTT LinUtil Script -> curl -fsSL https://christitus.com/linux | sh </span>\"'"\
+  --field="🐳     Install Docker":FBTN "bash -c 'yad --info --title=\"Install Docker\" --width=800 --height=120 --center --window-icon=dialog-warning --markup --text=\"<span foreground=\\\"yellow\\\" size=\\\"large\\\">⚠️ Please install Docker using CTT LinUtil Script -> curl -fsSL https://christitus.com/linux | sh </span>\"'" \
   --field="🔑     Selfhost Filebrowser":FBTN "bash -c 'selfhost_filebrowser'" \
   --field="🔑     Selfhost Lazydocker":FBTN "bash -c 'selfhost_lazydocker'" \
+  --field="🔑     Selfhost Portainer":FBTN "bash -c 'selfhost_portainer'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
