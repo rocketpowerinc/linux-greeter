@@ -9,8 +9,8 @@ reset_docker() {
   sudo docker rmi $(sudo docker images -q)
   sudo docker volume prune -f
   sudo docker network prune -f
-  sudo docker system prune -a --volumes -f
   sudo rm -rf $HOME/Docker/*/
+  sudo docker system prune -a --volumes -f
   read -p "Press Enter to exit..."
   exit
 }
