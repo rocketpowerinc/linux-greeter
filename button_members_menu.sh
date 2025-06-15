@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+pkill -f "yad --title="
+
 DOWNLOAD_PATH="$HOME/Downloads/linux-greeter"
 
 # Display the main menu with buttons in the center of the frame
