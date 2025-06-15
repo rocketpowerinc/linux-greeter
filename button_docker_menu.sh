@@ -58,6 +58,8 @@ EOF
     --fontname="monospace 12" \
     --wrap \
     --text="<span foreground='cyan' weight='bold' size='20000'>FileBrowser now running at:</span>"
+
+    xdg-open http://localhost:3000
 }
 
 export -f selfhost_filebrowser
@@ -106,6 +108,7 @@ EOF
     --fontname="monospace 12" \
     --wrap \
     --text="<span foreground='cyan' weight='bold' size='18000'>Run this command to view Lazydocker</span>"
+
 }
 
 export -f selfhost_lazydocker
@@ -152,6 +155,8 @@ EOF
     --wrap \
     --text="<span foreground='cyan' weight='bold' size='20000'>Portainer now running at:</span>"
 
+  xdg-open http://localhost:9443
+
 }
 
 export -f selfhost_portainer
@@ -183,7 +188,6 @@ EOF
   # Navigate to the directory and build + run the container
   cd "$BASE_DIR" || return
   sudo docker compose up -d --build
-  xdg-open http://localhost:5800
   # Notify the user
   echo "http://localhost:5800" | yad --text-info \
     --title="Jdownloader Started" \
@@ -196,6 +200,7 @@ EOF
     --wrap \
     --text="<span foreground='cyan' weight='bold' size='20000'>Jdownloader2 now running at:</span>"
 
+  xdg-open http://localhost:5800
 }
 
 export -f selfhost_jdownloader
@@ -245,8 +250,6 @@ EOF
 }
 
 export -f selfhost_wud
-
-
 
 #!######################      MENU         #######################
 # Display the main menu with buttons in the center of the frame
