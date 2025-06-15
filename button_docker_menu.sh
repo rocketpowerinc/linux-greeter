@@ -14,7 +14,7 @@ reset_docker() {
   sudo docker system prune -a --volumes -f
 }
 export -f reset_docker
-#################################################
+#*################################################
 
 selfhost_filebrowser() {
   BASE_DIR="$HOME/Docker/filebrowser"
@@ -62,7 +62,7 @@ EOF
 
 export -f selfhost_filebrowser
 
-#########################################################
+#*########################################################
 
 selfhost_lazydocker() {
   BASE_DIR="$HOME/Docker/lazydocker"
@@ -110,7 +110,7 @@ EOF
 
 export -f selfhost_lazydocker
 
-#########################################################
+#*########################################################
 
 selfhost_portainer() {
   BASE_DIR="$HOME/Docker/portainer"
@@ -151,6 +151,50 @@ EOF
     --fontname="monospace 12" \
     --wrap \
     --text="<span foreground='cyan' weight='bold' size='20000'>Portainer now running at:</span>"
+
+}
+
+export -f selfhost_portainer
+
+#*########################################################
+
+selfhost_jdownloader() {
+  BASE_DIR="$HOME/Docker/jdownloader"
+  COMPOSE_FILE="$BASE_DIR/docker-compose.yml"
+
+  # Ensure the base directory exists
+  mkdir -p "$BASE_DIR"
+
+  # Write the docker-compose.yml file
+  cat >"$COMPOSE_FILE" <<EOF
+services:
+  jdownloader-2:
+    image: jlesage/jdownloader-2
+    container_name: jdownloader-2
+    ports:
+      - "5800:5800"
+    volumes:
+      - /docker/appdata/jdownloader-2:/config:rw
+      - /home/rocket/Downloads:/output:rw
+    restart: unless-stopped
+
+EOF
+
+  # Navigate to the directory and build + run the container
+  cd "$BASE_DIR" || return
+  sudo docker compose up -d --build
+
+  # Notify the user
+  echo "http://localhost:5800" | yad --text-info \
+    --title="Jdownloader Started" \
+    --width=500 \
+    --height=200 \
+    --center \
+    --window-icon=dialog-information \
+    --no-buttons \
+    --fontname="monospace 12" \
+    --wrap \
+    --text="<span foreground='cyan' weight='bold' size='20000'>Jdownloader2 now running at:</span>"
 
 }
 
