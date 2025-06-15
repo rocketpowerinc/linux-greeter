@@ -96,7 +96,16 @@ EOF
   sudo docker compose up -d --build
 
   # Notify the user
-  yad --info --text="Lazydocker is now running. Attach with:\n\n<b>sudo docker exec -it lazydocker lazydocker</b>"
+  echo "sudo docker exec -it lazydocker lazydocker" | yad --text-info \
+    --title="Lazydocker command" \
+    --width=500 \
+    --height=200 \
+    --center \
+    --window-icon=dialog-information \
+    --no-buttons \
+    --fontname="monospace 12" \
+    --wrap \
+    --text="<span foreground='cyan' weight='bold' size='20000'>Run this command to view Lazydocker</span>"
 }
 
 export -f selfhost_lazydocker
