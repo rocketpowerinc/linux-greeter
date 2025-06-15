@@ -105,7 +105,7 @@ EOF
     --no-buttons \
     --fontname="monospace 12" \
     --wrap \
-    --text="<span foreground='cyan' weight='bold' size='20000'>Run this command to view Lazydocker</span>"
+    --text="<span foreground='cyan' weight='bold' size='18000'>Run this command to view Lazydocker</span>"
 }
 
 export -f selfhost_lazydocker
