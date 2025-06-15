@@ -7,10 +7,15 @@ PIRATE_WEBSITES=$(cat << 'EOF'
 xdg-open https://www.rottentomatoes.com/ &
 sleep 1s
 xdg-open https://ext.to/ &
+sleep 1s
 xdg-open https://torrentgalaxy.one/ &
+sleep 1s
 xdg-open https://pcgamestorrents.com/ &
+sleep 1s
 xdg-open https://www.ziperto.com/ &
+sleep 1s
 xdg-open https://yts.hn/ &
+sleep 1s
 xdg-open https://thepiratebay10.xyz/ &
 EOF
 )
