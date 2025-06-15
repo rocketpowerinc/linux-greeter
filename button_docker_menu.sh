@@ -240,9 +240,13 @@ EOF
     --wrap \
     --text="<span foreground='cyan' weight='bold' size='20000'>WUD now running at:</span>"
 
+  xdg-open http://localhost:3001
+
 }
 
 export -f selfhost_wud
+
+
 
 #!######################      MENU         #######################
 # Display the main menu with buttons in the center of the frame
