@@ -11,8 +11,6 @@ reset_docker() {
   sudo docker network prune -f
   sudo rm -rf $HOME/Docker/*/
   sudo docker system prune -a --volumes -f
-  read -p "Press Enter to exit..."
-  exit
 }
 export -f reset_docker
 #################################################
