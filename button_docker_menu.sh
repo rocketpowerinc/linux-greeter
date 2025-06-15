@@ -37,7 +37,16 @@ EOF
   sudo docker compose up -d
 
   # Notify the user
-  echo "FileBrowser is now running at http://localhost:3000"
+  echo "http://localhost:3000" | yad --text-info \
+    --title="FileBrowser Started" \
+    --width=500 \
+    --height=200 \
+    --center \
+    --window-icon=dialog-information \
+    --no-buttons \
+    --fontname="monospace 12" \
+    --wrap \
+    --text="<span foreground='cyan' weight='bold' size='20000'>FileBrowser now running at:</span>"
 }
 
 export -f selfhost_filebrowser
@@ -112,7 +121,17 @@ EOF
   sudo docker compose up -d --build
 
   # Notify the user
-  yad --info --text="Portainer is now running. Attach with:\n\n<b>sudo docker exec -it lazydocker lazydocker</b>"
+  echo "https://localhost:9443" | yad --text-info \
+    --title="Portainer Started" \
+    --width=500 \
+    --height=200 \
+    --center \
+    --window-icon=dialog-information \
+    --no-buttons \
+    --fontname="monospace 12" \
+    --wrap \
+    --text="<span foreground='cyan' weight='bold' size='20000'>Portainer now running at:</span>"
+
 }
 
 export -f selfhost_portainer
