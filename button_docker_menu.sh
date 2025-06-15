@@ -13,7 +13,7 @@ reset_docker() {
   sudo docker system prune -a --volumes -f
   sudo rm -rf $HOME/Docker/*/
 }
-
+export -f reset_docker
 #################################################
 
 selfhost_filebrowser() {
