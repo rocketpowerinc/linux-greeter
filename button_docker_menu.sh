@@ -12,6 +12,8 @@ reset_docker() {
   sudo docker network prune -f
   sudo docker system prune -a --volumes -f
   sudo rm -rf $HOME/Docker/*/
+  read -p "Press Enter to exit..."
+  exit
 }
 export -f reset_docker
 #################################################
@@ -154,7 +156,7 @@ yad --title="" \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large'>Docker Menu</span>\n\n\n" \
   --field="🐳     Install Docker":FBTN "bash -c 'yad --info --title=\"Install Docker\" --width=800 --height=120 --center --window-icon=dialog-warning --markup --text=\"<span foreground=\\\"yellow\\\" size=\\\"large\\\">⚠️ Please install Docker using CTT LinUtil Script -> curl -fsSL https://christitus.com/linux | sh </span>\"'" \
-  --field="🗑️     Reset Docker - Stop and Delete all containers":FBTN "bash -c 'reset_docker'" \
+  --field="🗑️     Reset Docker":FBTN "bash -c 'reset_docker'" \
   --field="🔑     Selfhost Filebrowser":FBTN "bash -c 'selfhost_filebrowser'" \
   --field="🔑     Selfhost Lazydocker":FBTN "bash -c 'selfhost_lazydocker'" \
   --field="🔑     Selfhost Portainer":FBTN "bash -c 'selfhost_portainer'" \
