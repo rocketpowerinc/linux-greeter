@@ -40,8 +40,8 @@ yad --title="Installer Menu" \
   --width=600 --height=600 \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large'>Installer Menu</span>\n\n\n" \
-  --field="📥  Install rEFInd":FBTN "bash -c $install_refind" \
-  --field="📥  Install rEFInd matrix theme":FBTN "bash -c $install_refind_matrix_theme" \
+  --field="📥  Install rEFInd":FBTN "bash -c install_refind" \
+  --field="📥  Install rEFInd matrix theme":FBTN "bash -c install_refind_matrix_theme" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
