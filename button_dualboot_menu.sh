@@ -15,15 +15,7 @@ export -f install_refind
 ################################################################################
 install_matrix_theme() {
   THEME_DIR="/boot/efi/EFI/refind/themes/Matrix-rEFInd"
-
-  if [ -d "$THEME_DIR" ] && [ "$(ls -A "$THEME_DIR")" ]; then
-    # Folder exists and is not empty
-    echo -e "\e[32mTheme already exists.\e[0m"
-    read -p "Press Enter to exit..."
-    return 0
-  fi
-
-  # Otherwise, create folder and clone
+  sudo rm -rf "$THEME_DIR"
   sudo mkdir -p "$THEME_DIR"
   sudo git clone https://github.com/Yannis4444/Matrix-rEFInd.git "$THEME_DIR"
 }
