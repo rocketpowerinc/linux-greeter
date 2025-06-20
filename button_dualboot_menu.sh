@@ -18,9 +18,14 @@ install_matrix_theme() {
   sudo rm -rf "$THEME_DIR"
   sudo mkdir -p "$THEME_DIR"
   sudo git clone https://github.com/Yannis4444/Matrix-rEFInd.git "$THEME_DIR"
+
+  #append the theme configuration to the refind.conf file
+  if [ "$(tail -n 1 /boot/efi/EFI/refind/refind.conf)" != "include themes/Matrix-rEFInd/theme.conf" ]; then
+    echo "include themes/Matrix-rEFInd/theme.conf" | sudo tee -a /boot/efi/EFI/refind/refind.conf
+  fi
+
 }
 export -f install_matrix_theme
-
 
 ############################################################################
 yad --title="Installer Menu" \
