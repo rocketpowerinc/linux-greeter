@@ -12,6 +12,7 @@ install_refind() {
 # Export the function so yad can call it
 export -f install_refind
 
+################################################################################
 install_matrix_theme() {
   local THEME_DIR="/boot/efi/EFI/refind/themes/Matrix-rEFInd"
 
@@ -26,6 +27,7 @@ install_matrix_theme() {
   sudo mkdir -p "$THEME_DIR"
   sudo git clone https://github.com/Yannis4444/Matrix-rEFInd.git "$THEME_DIR"
 }
+export -f install_matrix_theme
 
 
 ############################################################################
