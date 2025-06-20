@@ -14,7 +14,7 @@ export -f install_refind
 
 ################################################################################
 install_matrix_theme() {
-  local THEME_DIR="/boot/efi/EFI/refind/themes/Matrix-rEFInd"
+  THEME_DIR="/boot/efi/EFI/refind/themes/Matrix-rEFInd"
 
   if [ -d "$THEME_DIR" ] && [ "$(ls -A "$THEME_DIR")" ]; then
     # Folder exists and is not empty
