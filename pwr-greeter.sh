@@ -46,7 +46,7 @@ yad --title="" \
   --field="<span foreground='#1E90FF'>🛠️ Titus LinUtil</span>":FBTN "bash -c '$DOWNLOAD_PATH/button_open_tituslinutil.sh'" \
   --field="<span foreground='#FFD700'>🎯 Distro Specific</span>":FBTN "bash -c '$DOWNLOAD_PATH/button_distro_menu.sh'" \
   --field="<span foreground='#FF69B4'>🗃️ ScriptBin</span>":FBTN "bash -c '$DOWNLOAD_PATH/button_open_scriptbin.sh'" \
-  --field="<span foreground='#00BFFF'>🐳 Docker</span>":FBTN "bash -c '$DOWNLOAD_PATH/button_docker_menu.sh'" \
+  --field="<span foreground='#00BFFF'>🐳 Servers</span>":FBTN "bash -c '$DOWNLOAD_PATH/button_docker_menu.sh'" \
   --field="<span foreground='#ADFF2F'>⚙️ Dotfiles</span>":FBTN "bash -c '$DOWNLOAD_PATH/button_dotfiles_menu.sh'" \
   --field="<span foreground='#663399'>🎭 Dual Booting</span>":FBTN "bash -c '$DOWNLOAD_PATH/button_dualboot_menu.sh'" \
 --field="<span foreground='#FF4500'>🔒 Members Only</span>":FBTN "bash -c '$DOWNLOAD_PATH/button_members_menu.sh'"
