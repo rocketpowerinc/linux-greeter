@@ -59,7 +59,7 @@ EOF
     --wrap \
     --text="<span foreground='cyan' weight='bold' size='20000'>FileBrowser now running at:</span>"
 
-    xdg-open http://localhost:3000
+  xdg-open http://localhost:3000
 }
 
 export -f selfhost_filebrowser
@@ -251,6 +251,67 @@ EOF
 
 export -f selfhost_wud
 
+#*########################################################
+
+selfhost_glance() {
+  BASE_DIR="$HOME/Docker/glance"
+  COMPOSE_FILE="$BASE_DIR/docker-compose.yml"
+
+  # Ensure the base directory exists
+  mkdir -p "$BASE_DIR"
+
+  # Write the docker-compose.yml file
+  cat >"$COMPOSE_FILE" <<EOF
+services:
+  glance:
+    container_name: glance
+    image: glanceapp/glance
+    restart: unless-stopped
+    volumes:
+      - ./config:/app/config
+      - ./assets:/app/assets
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 3002:8080
+EOF
+
+  # Navigate to the directory and build + run the container
+  cd "$BASE_DIR" || return
+  sudo docker compose up -d --build
+
+  # Notify the user
+  echo "http://localhost:3002" | yad --text-info \
+    --title="Glance Started" \
+    --width=500 \
+    --height=200 \
+    --center \
+    --window-icon=dialog-information \
+    --no-buttons \
+    --fontname="monospace 12" \
+    --wrap \
+    --text="<span foreground='cyan' weight='bold' size='20000'>WUD now running at:</span>"
+
+  # Copy The dotfile
+  # Set target directory
+  TARGET_DIR="$HOME/Docker/glance"
+  FILE_NAME="glance.yml"
+  RAW_URL="https://raw.githubusercontent.com/rocketpowerinc/dotfiles/main/glance/glance.yml"
+
+  # Create the directory if it doesn't exist
+  mkdir -p "$TARGET_DIR"
+
+  # Download the file
+  curl -L -o "$TARGET_DIR/$FILE_NAME" "$RAW_URL"
+
+  # Confirm
+  echo "Downloaded glance.yml to $TARGET_DIR"
+
+  xdg-open http://localhost:3002
+
+}
+
+export -f selfhost_glance
+
 #!######################      MENU         #######################
 # Display the main menu with buttons in the center of the frame
 yad --title="" \
@@ -264,6 +325,7 @@ yad --title="" \
   --field="🔑     Selfhost Portainer":FBTN "bash -c 'selfhost_portainer'" \
   --field="🔑     Selfhost Jdownloader2":FBTN "bash -c 'selfhost_jdownloader'" \
   --field="🔑     Selfhost WUD":FBTN "bash -c 'selfhost_wud'" \
+  --field="🔑     Selfhost WUD":FBTN "bash -c 'selfhost_glance'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
