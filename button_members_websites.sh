@@ -21,9 +21,8 @@ xdg-open https://thepiratebay10.xyz/ &
 EOF
 )
 ################################
-FIREFOX_BOOKMARKS=$(
-curl -L -o "$HOME/Downloads/PRIVATE-bookmarks-2025-07-12.json" https://raw.githubusercontent.com/rocketpowerinc/appbundles/main/Firefox-Bookmarks/PRIVATE-bookmarks-2025-07-12.json
-)
+# Firefox bookmarks download command (only runs when button is clicked)
+FIREFOX_BOOKMARKS_CMD="curl -L -o \"$HOME/Downloads/PRIVATE-bookmarks-2025-07-12.json\" https://raw.githubusercontent.com/rocketpowerinc/appbundles/main/Firefox-Bookmarks/PRIVATE-bookmarks-2025-07-12.json && notify-send 'Bookmarks Downloaded'"
 
 
 
@@ -36,7 +35,7 @@ yad --title="" \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large'>Favorite Websites Menu</span>\n\n\n" \
   --field="🏴‍☠️     Pirating":FBTN "bash -c \"$PIRATE_WEBSITES\"" \
-  --field="🦊     Firefox Bookmarks":FBTN "bash -c \"$FIREFOX_BOOKMARKS\"" \
+  --field="🦊     Firefox Bookmarks":FBTN "bash -c \"$FIREFOX_BOOKMARKS_CMD\"" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
