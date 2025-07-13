@@ -279,16 +279,26 @@ EOF
   cd "$BASE_DIR" || return
   sudo docker compose up -d --build
 
-  # Copy The dotfile
-  TARGET_DIR="$HOME/Docker/glance/config"
-  FILE_NAME="glance.yml"
-  RAW_URL="https://raw.githubusercontent.com/rocketpowerinc/dotfiles/main/glance/glance.yml"
+  #todo########## Copy The dotfile
+  REPO_URL="https://github.com/rocketpowerinc/dotfiles.git"
+  CLONE_DIR="$HOME/Downloads/dotfiles"
+  TARGET_PATH="$HOME/Docker/glance/config"
 
-  # Download the file
-  sudo curl -L -o "$TARGET_DIR/$FILE_NAME" "$RAW_URL"
+  # Force delete the directory if it already exists
+  rm -rf "$CLONE_DIR"
 
-  # Confirm
-  echo "Downloaded glance.yml to $TARGET_DIR"
+  # Clone the repository
+  git clone "$REPO_URL" "$CLONE_DIR"
+
+  # Move the glance.yml file
+  mv "$CLONE_DIR/glance/glance.yml" "$TARGET_PATH/"
+
+  # Confirm success
+  if [ $? -eq 0 ]; then
+    echo "glance.yml moved to $TARGET_PATH"
+  else
+    echo "Failed to move glance.yml"
+  fi
 
   # Notify the user
   echo "http://localhost:3002" | yad --text-info \
