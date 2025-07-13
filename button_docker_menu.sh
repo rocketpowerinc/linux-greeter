@@ -291,7 +291,7 @@ EOF
   git clone "$REPO_URL" "$CLONE_DIR"
 
   # Move the glance.yml file
-  mv "$CLONE_DIR/glance/glance.yml" "$TARGET_PATH/"
+  sudo mv "$CLONE_DIR/glance/glance.yml" "$TARGET_PATH/"
 
   # Confirm success
   if [ $? -eq 0 ]; then
