@@ -279,6 +279,17 @@ EOF
   cd "$BASE_DIR" || return
   sudo docker compose up -d --build
 
+  # Copy The dotfile
+  TARGET_DIR="$HOME/Docker/glance/config"
+  FILE_NAME="glance.yml"
+  RAW_URL="https://raw.githubusercontent.com/rocketpowerinc/dotfiles/main/glance/glance.yml"
+
+  # Download the file
+  sudo curl -L -o "$TARGET_DIR/$FILE_NAME" "$RAW_URL"
+
+  # Confirm
+  echo "Downloaded glance.yml to $TARGET_DIR"
+
   # Notify the user
   echo "http://localhost:3002" | yad --text-info \
     --title="Glance Started" \
@@ -290,18 +301,6 @@ EOF
     --fontname="monospace 12" \
     --wrap \
     --text="<span foreground='cyan' weight='bold' size='20000'>WUD now running at:</span>"
-
-  # Copy The dotfile
-  # Set target directory
-  TARGET_DIR="$HOME/Docker/glance/config"
-  FILE_NAME="glance.yml"
-  RAW_URL="https://raw.githubusercontent.com/rocketpowerinc/dotfiles/main/glance/glance.yml"
-
-  # Download the file
-  sudo curl -L -o "$TARGET_DIR/$FILE_NAME" "$RAW_URL"
-
-  # Confirm
-  echo "Downloaded glance.yml to $TARGET_DIR"
 
   xdg-open http://localhost:3002
 
