@@ -297,11 +297,8 @@ EOF
   FILE_NAME="glance.yml"
   RAW_URL="https://raw.githubusercontent.com/rocketpowerinc/dotfiles/main/glance/glance.yml"
 
-  # Create the directory if it doesn't exist
-  mkdir -p "$TARGET_DIR"
-
   # Download the file
-  curl -L -o "$TARGET_DIR/$FILE_NAME" "$RAW_URL"
+  sudo curl -L -o "$TARGET_DIR/$FILE_NAME" "$RAW_URL"
 
   # Confirm
   echo "Downloaded glance.yml to $TARGET_DIR"
