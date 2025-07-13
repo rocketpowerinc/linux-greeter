@@ -22,7 +22,8 @@ EOF
 )
 ################################
 # Firefox bookmarks download command (only runs when button is clicked)
-FIREFOX_BOOKMARKS_CMD="curl -L -o \"$HOME/Downloads/PUBLIC-bookmarks-latest.json\" https://raw.githubusercontent.com/rocketpowerinc/appbundles/main/Firefox-Bookmarks/PUBLIC-bookmarks-latest.json && echo -e "\e[32mbookmarks.json saved to \$HOME/Downloads/\e[0m" && read -p \"Press Enter to exit...\"'
+FIREFOX_BOOKMARKS_CMD='curl -L -o "$HOME/Downloads/PUBLIC-bookmarks-latest.json" https://raw.githubusercontent.com/rocketpowerinc/appbundles/main/Firefox-Bookmarks/PUBLIC-bookmarks-latest.json && echo -e "\e[32mbookmarks.json saved to \$HOME/Downloads/\e[0m" && read -p "Press Enter to exit..."'
+
 
 
 
