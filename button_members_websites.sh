@@ -21,10 +21,6 @@ xdg-open https://thepiratebay10.xyz/ &
 EOF
 )
 ################################
-# Firefox bookmarks download command (only runs when button is clicked)
-FIREFOX_BOOKMARKS_CMD='curl -L -o "$HOME/Downloads/PUBLIC-bookmarks-latest.json" https://raw.githubusercontent.com/rocketpowerinc/appbundles/main/Firefox-Bookmarks/PUBLIC-bookmarks-latest.json && echo -e "\e[32mbookmarks.json saved to \$HOME/Downloads/\e[0m" && read -p "Press Enter to exit..."'
-
-
 
 
 
@@ -36,7 +32,7 @@ yad --title="" \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large'>Favorite Websites Menu</span>\n\n\n" \
   --field="🏴‍☠️     Pirating":FBTN "bash -c \"$PIRATE_WEBSITES\"" \
-  --field="🦊     Firefox Bookmarks":FBTN "bash -c \"$FIREFOX_BOOKMARKS_CMD\"" \
+  --field="🦊     Firefox Bookmarks":FBTN "bash -c 'curl -L -o \"$HOME/Downloads/PUBLIC-bookmarks-latest.json\" https://raw.githubusercontent.com/rocketpowerinc/appbundles/main/Firefox-Bookmarks/PUBLIC-bookmarks-latest.json && echo -e \"\e[32mbookmarks.json saved to \$HOME/Downloads/\e[0m\" && read -p \"Press Enter to exit...\"'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
