@@ -22,7 +22,7 @@ EOF
 )
 ################################
 # Firefox bookmarks download command (only runs when button is clicked)
-FIREFOX_BOOKMARKS_CMD="curl -L -o \"$HOME/Downloads/PRIVATE-bookmarks-2025-07-12.json\" https://raw.githubusercontent.com/rocketpowerinc/appbundles/main/Firefox-Bookmarks/PRIVATE-bookmarks-2025-07-12.json && notify-send 'Bookmarks Downloaded'"
+FIREFOX_BOOKMARKS_CMD="curl -L -o \"$HOME/Downloads/PRIVATE-bookmarks-2025-07-12.json\" https://raw.githubusercontent.com/rocketpowerinc/appbundles/main/Firefox-Bookmarks/PRIVATE-bookmarks-latest.json && echo 'bookmarks.json saved to $HOME/Downloads/'"
 
 
 
