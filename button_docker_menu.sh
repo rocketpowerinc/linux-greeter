@@ -279,7 +279,7 @@ EOF
   cd "$BASE_DIR" || return
   sudo docker compose up -d --build
 
-  #todo########## Copy The dotfile
+  ########### Copy The dotfile
   REPO_URL="https://github.com/rocketpowerinc/dotfiles.git"
   CLONE_DIR="$HOME/Downloads/dotfiles"
   TARGET_PATH="$HOME/Docker/glance/config"
