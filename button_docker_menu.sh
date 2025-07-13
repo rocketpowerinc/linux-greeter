@@ -325,7 +325,7 @@ yad --title="" \
   --field="🔑     Selfhost Portainer":FBTN "bash -c 'selfhost_portainer'" \
   --field="🔑     Selfhost Jdownloader2":FBTN "bash -c 'selfhost_jdownloader'" \
   --field="🔑     Selfhost WUD":FBTN "bash -c 'selfhost_wud'" \
-  --field="🔑     Selfhost glance":FBTN "bash -c 'selfhost_glance'" \
+  --field="🔑     Selfhost Glance":FBTN "bash -c 'selfhost_glance'" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
 choice=$?
