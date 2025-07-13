@@ -293,7 +293,7 @@ EOF
 
   # Copy The dotfile
   # Set target directory
-  TARGET_DIR="$HOME/Docker/glance"
+  TARGET_DIR="$HOME/Docker/glance/config"
   FILE_NAME="glance.yml"
   RAW_URL="https://raw.githubusercontent.com/rocketpowerinc/dotfiles/main/glance/glance.yml"
 
