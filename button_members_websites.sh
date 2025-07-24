@@ -17,7 +17,7 @@ xdg-open https://www.ziperto.com/ &
 sleep 1s
 xdg-open https://skipvids.com/ &
 sleep 1s
-xdg-open https://yts.hn/ &
+xdg-open https://cobalt.tools/ &
 sleep 1s
 xdg-open https://thepiratebay10.xyz/ &
 EOF
