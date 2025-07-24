@@ -15,6 +15,8 @@ xdg-open https://pcgamestorrents.com/ &
 sleep 1s
 xdg-open https://www.ziperto.com/ &
 sleep 1s
+xdg-open https://skipvids.com/ &
+sleep 1s
 xdg-open https://yts.hn/ &
 sleep 1s
 xdg-open https://thepiratebay10.xyz/ &
