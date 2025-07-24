@@ -50,7 +50,7 @@ yad --title="" \
   --width=600 --height=600 \
   --form --columns=2 --align=center --no-buttons --dark \
   --text-align=center --text="<span size='x-large'>Favorite Websites Menu</span>\n\n\n" \
-  --field="🏴‍☠️     Pirating":FBTN "bash -c \"$PIRATE_WEBSITES\"" \
+  --field="🏴‍☠️     Sail the High Seas":FBTN "bash -c \"$PIRATE_WEBSITES\"" \
   --field="🦊     Firefox Bookmarks":FBTN "bash -c clone_bookmarks_repo" \
   --field="❌ Exit":FBTN "bash -c 'pkill yad'"
 
